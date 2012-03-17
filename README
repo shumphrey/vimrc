@@ -1,0 +1,6 @@
+My vim environment & plugi
+To use this:
+
+mkdir ~/.vim
+cd ~/.vim
+git clone git@github.com:shumphrey/Vim-Settings.git
