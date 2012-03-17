@@ -11,14 +11,33 @@ call pathogen#infect()
 
 set nocompatible " get out of horrible vi-compatible mode
 filetype on " detect the type of file
+filetype plugin on " load filetype plugins
+syntax on " syntax highlighting on
 set history=1000 " How many lines of history to remember
 set cf " enable error files and error jumping
 " set ffs=dos,unix,mac " support all three, in this order
-filetype plugin on " load filetype plugins
 set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,#,- " none of these should be word dividers, so make them not be
 set wildmode=list:longest,full
 
+" Indenting level
+set ts=4
+set cindent shiftwidth=4
+set et " Expand tabs to be spaces
+
+" Search settings
+set nohlsearch
+set incsearch
+set ignorecase smartcase " only search case sensitive if you include case
+set hls
+
+" Stop comments from being on newline
+set cinkeys-=0#
+set indentkeys-=0#
+
+" A more sensible file tab completion
+set wildmode=longest,list,full
+set wildmenu
 
 """""""""""""""""
 " Theme/Colours "
@@ -26,7 +45,6 @@ set wildmode=list:longest,full
 " set background=light " we are using a dark background
 set background=dark " we are using a dark background
 " set background=dark " we are using a dark background
-syntax on " syntax highlighting on
 " colorscheme elflord " my theme
 
 " Set perl comment colour to be red
@@ -44,7 +62,6 @@ set nowritebackup
 " Vim UI "
 """"""""""
 " set lsp=0 " space it out a little more (easier to read)
-set wildmenu " turn on wild menu
 set ruler " Always show current positions along the bottom 
 " set cmdheight=2 " the command bar is 2 high
 set lz " do not redraw while running macros (much faster) (LazyRedraw)
@@ -57,7 +74,7 @@ set report=0 " tell us when anything is changed via :...
 set noerrorbells " don't make noise
 " make the splitters between windows be blank
 " set fillchars=vert:\ ,stl:\ ,stlnc:\
-        "
+
 " indicate when a line is wrapped by prefixing wrapped line with '> '
 set showbreak=>\ 
 
@@ -65,20 +82,10 @@ set showbreak=>\
 """""""""""""""
 " Visual Cues "
 """""""""""""""
-set ts=4
-set cindent shiftwidth=4
-" Expand tabs to be spaces
-set et
 " show matching brackets
 set showmatch
 " how many tenths of a second to blink matching brackets for
 set mat=4
-" do not highlight searched for phrases
-set nohlsearch
-" BUT do highlight as you type you search phrase
-set incsearch
-" only search case sensitive if you include case
-set ignorecase smartcase
 " set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$ " what to show when I hit :set list
 " set lines=80 " 80 lines tall
 " set columns=160 " 160 cols wide
@@ -102,8 +109,6 @@ set omnifunc=syntaxcomplete#Complete
 
 " switch windows
 map <tab> <C-W>w
-
-
 
 nmap :W :w
 nmap :X :x
@@ -134,19 +139,29 @@ nmap k gk
 """""""""""""
 " filetypes "
 """""""""""""
-autocmd BufRead *.t set filetype=perl
-autocmd BufRead *.inc set filetype=perl
-autocmd BufRead *.httplt set filetype=html
-autocmd BufRead *.tt set filetype=html
+" Set template::toolkit files to use the tt2html syntax plugin
+au BufNewFile,BufRead *.tt set filetype=tt2html
+" Set JB process files to be filetype perl
+au BufNewFile,BufRead process set filetype=perl
+au BufNewFile,BufRead *.t set filetype=perl
 
+""""""""""""
+" Aliases  "
+""""""""""""
+iab xdate <c-r>=strftime("%y-%m-%d %H:%M:%S")<cr>
+iab eric ERIC IS BANANAMAN!!!
+iab udd use Data::Dumper;
+iab ddd die(Dumper($
 
 """""""""""""
 " Templates "
 """""""""""""
 autocmd! BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e
 
-"""""""""""
-" Abbrevs "
-"""""""""""
-iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
-
+"""""""""""""""""""
+" Compiler options
+"""""""""""""""""""
+let g:perl_compiler_force_warnings = 0
+autocmd BufNewFile,BufRead *.pl compiler perl
+autocmd BufNewFile,BufRead *.pm compiler perl
+autocmd BufNewFile,BufRead *.t compiler perl
