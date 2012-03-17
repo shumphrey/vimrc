@@ -117,7 +117,8 @@ nmap :Q :q
 map <F2> :set hls!<CR>
 map <F3> :set number!<CR>
 map <F5> :set wrap!<CR>
-map <F6> :set paste!<CR>
+" map <F6> :set paste!<CR>
+set pastetoggle=<F6>
 map <F7> :sp <cfile><CR>
 map <F8> :vs <cfile><CR>
 
