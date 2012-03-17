@@ -1,4 +1,4 @@
-My vim environment & plugi
+My vim environment & plugins. Plugins incorporated wih git submodule.
 To use this:
 
 mkdir ~/.vim
