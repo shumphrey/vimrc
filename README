@@ -4,3 +4,6 @@ To use this:
 mkdir ~/.vim
 cd ~/.vim
 git clone git@github.com:shumphrey/Vim-Settings.git
+
+You can also use this vimrc file
+ln -s ~/.vim/vimrc ~/.vimrc
