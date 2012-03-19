@@ -3,8 +3,7 @@ To use this:
 
 ```bash
 mkdir ~/.vim
-cd ~/.vim
-git clone --recursive git@github.com:shumphrey/Vim-Settings.git
+git clone --recursive git@github.com:shumphrey/Vim-Settings.git .vim
 ```
 
 You can use this file by sourcing it. Add the following to the top of your vimrc file:
