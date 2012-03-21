@@ -115,7 +115,7 @@ nmap :X :x
 nmap :Q :q
 
 map <F2> :set hls!<CR>
-map <F3> :set number!<CR>
+" map <F3> :set number!<CR>
 map <F5> :set wrap!<CR>
 " map <F6> :set paste!<CR>
 set pastetoggle=<F6>
@@ -129,7 +129,6 @@ map <F11> gg:1,3s/^/#/G:s/^/#/
 
 " shift-k for perldoc -f (uses standard perl plugin options)
 " See perl.vim in ftplugins
-map <F10> :!perldoc <cfile><CR>
 map <F3> :!perldoc <cfile><CR>
 " map <F12> :%!perltidy<CR>
 
@@ -151,8 +150,8 @@ au BufNewFile,BufRead *.t set filetype=perl
 """"""""""""
 iab xdate <c-r>=strftime("%y-%m-%d %H:%M:%S")<cr>
 iab eric ERIC IS BANANAMAN!!!
-iab udd use Data::Dumper;
-iab ddd die(Dumper($
+" iab udd use Data::Dumper;
+" iab ddd die(Dumper($
 
 """""""""""""
 " Templates "
