@@ -26,12 +26,12 @@ set cindent shiftwidth=4
 set et " Expand tabs to be spaces
 
 " Search settings
+set hls
 set nohlsearch
 set incsearch
 set ignorecase smartcase " only search case sensitive if you include case
-set hls
 
-" Stop comments from being on newline
+" Stop comments from being at the start of newline
 set cinkeys-=0#
 set indentkeys-=0#
 
@@ -42,9 +42,7 @@ set wildmenu
 """""""""""""""""
 " Theme/Colours "
 """""""""""""""""
-" set background=light " we are using a dark background
 set background=dark " we are using a dark background
-" set background=dark " we are using a dark background
 " colorscheme elflord " my theme
 
 " Set perl comment colour to be red
@@ -127,7 +125,7 @@ map <F10> :s/^#//g<CR>
 
 map <F11> gg:1,3s/^/#/G:s/^/#/
 
-" shift-k for perldoc -f (uses standard perl plugin options)
+" shift-k for perldoc -f (uses standard vim options set by perl syntax)
 " See perl.vim in ftplugins
 map <F3> :!perldoc <cfile><CR>
 " map <F12> :%!perltidy<CR>
