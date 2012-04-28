@@ -72,7 +72,7 @@ set hid " you can change buffer without saving
 set backspace=2 " make backspace work normal
 set whichwrap+=<,>,h,l  " backspace and cursor keys wrap to
 " set mouse=a " use mouse everywhere
-set shortmess=atI " shortens messages to avoid 'press a key' prompt 
+" set shortmess=atI " shortens messages to avoid 'press a key' prompt 
 set report=0 " tell us when anything is changed via :...
 set noerrorbells " don't make noise
 " make the splitters between windows be blank
