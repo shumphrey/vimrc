@@ -46,7 +46,12 @@ set background=dark " we are using a dark background
 " colorscheme elflord " my theme
 
 " Set perl comment colour to be red
-highlight Comment ctermfg=red
+" highlight Comment ctermfg=red
+
+" If there is a SOLARIZED ENV variable, set this scheme
+if $SOLARIZED
+colorscheme solarized
+endif
 
 
 """""""""""""""""
