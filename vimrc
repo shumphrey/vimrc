@@ -4,6 +4,8 @@
 " Pathogen for easy plugin installation
 call pathogen#infect()
 
+" See https://github.com/Lokaltog/vim-powerline
+let g:Powerline_symbols='fancy'
 
 """""""""""
 " General "
@@ -17,7 +19,7 @@ set history=1000 " How many lines of history to remember
 set cf " enable error files and error jumping
 " set ffs=dos,unix,mac " support all three, in this order
 set viminfo+=! " make sure it can save viminfo
-set isk+=_,$,@,%,#,- " none of these should be word dividers, so make them not be
+set isk+=_,$,@,%,- " none of these should be word dividers, so make them not be
 set wildmode=list:longest,full
 
 " Indenting level
@@ -79,7 +81,7 @@ set noerrorbells " don't make noise
 " set fillchars=vert:\ ,stl:\ ,stlnc:\
 
 " indicate when a line is wrapped by prefixing wrapped line with '> '
-set showbreak=>\ 
+" set showbreak=>\ 
 
 
 """""""""""""""
@@ -99,7 +101,9 @@ set laststatus=2 " always show the status line
 " alternate statusline
 " set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [POS=%04l,%04v][%p%%]
 " set statusline=%f\ %2*%m\ %1*%h%r%=[%{&encoding}\ %{&fileformat}\ %{strlen(&ft)?&ft:'none'}\ %{getfperm(@%)}]\ 0x%B\ %12.(%c:%l/%L%)
-set statusline=%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&encoding}\ %{&fileformat}\ %{strlen(&ft)?&ft:'none'}\ %{getfperm(@%)}]\ 0x%B\ %12.(%c:%l/%L%)
+
+" Super fancy status lines
+set statusline=%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}\ %{getfperm(@%)}]\ 0x%B\ %12.(%c:%l/%L%)
 
 """"""""""""""""
 " Syntax stuff
