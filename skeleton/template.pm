@@ -1,6 +1,6 @@
 =head1 NAME
 
-::
+::package::
 
 =head1 DESCRIPTION
 
@@ -15,7 +15,7 @@ Steven Humphrey
 
 =cut
 
-package ::
+package ::package::;
 
 use v5.10;
 use strict;

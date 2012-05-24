@@ -146,6 +146,7 @@ nmap k gk
 """""""""""""
 " filetypes "
 """""""""""""
+" autocmd! " reset autocommands incase reloading vimrc
 " Set template::toolkit files to use the tt2html syntax plugin
 au BufNewFile,BufRead *.tt set filetype=tt2html
 " Set JB process files to be filetype perl
@@ -163,7 +164,8 @@ iab eric ERIC IS BANANAMAN!!!
 """""""""""""
 " Templates "
 """""""""""""
-autocmd! BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e
+autocmd BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e|call SetInviewPackage()
+" set verbose=9
 
 """""""""""""""""""
 " Compiler options
@@ -172,3 +174,24 @@ let g:perl_compiler_force_warnings = 0
 autocmd BufNewFile,BufRead *.pl compiler perl
 autocmd BufNewFile,BufRead *.pm compiler perl
 autocmd BufNewFile,BufRead *.t compiler perl
+
+
+""""""""""""""""""
+" Functions
+""""""""""""""""""
+fun! SetInviewPackage()
+    let fname=expand('%:p')
+
+    let paths=['/opt/inview/perl_lib', '/home/shumphrey/git/perl_lib', '/opt/inview/web_internal/lib', '/home/shumphrey/web_internal/lib']
+    for path in paths
+        let index=matchend(fname, path)
+        if index > -1
+            let len=strlen(fname) - 3 - index
+            let pname=strpart(fname, index, len)
+            let parts=split(pname, '/')
+            let package=join(parts, '::')
+            exec '1,$g/::package::/s/::package::/' . package
+            return
+        endif
+    endfor
+endfun
