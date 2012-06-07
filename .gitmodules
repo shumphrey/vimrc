@@ -22,3 +22,6 @@
 [submodule "bundle/solarized"]
 	path = bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "bundle/inpaste"]
+	path = bundle/inpaste
+	url = git@github.com:shumphrey/Vim-InPaste-Plugin.git

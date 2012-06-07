@@ -151,6 +151,7 @@ nmap k gk
 au BufNewFile,BufRead *.tt set filetype=tt2html
 " Set JB process files to be filetype perl
 au BufNewFile,BufRead process set filetype=perl
+au BufNewFile,BufRead *.psgi set filetype=perl
 au BufNewFile,BufRead *.t set filetype=perl
 
 """"""""""""
