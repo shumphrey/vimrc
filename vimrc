@@ -21,6 +21,7 @@ set cf " enable error files and error jumping
 set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,- " none of these should be word dividers, so make them not be
 set wildmode=list:longest,full
+set splitright " vertical split opens on the right
 
 " Indenting level
 set ts=4
@@ -28,10 +29,11 @@ set cindent shiftwidth=4
 set et " Expand tabs to be spaces
 
 " Search settings
+" only search case sensitive if you include case
 set hls
 set nohlsearch
 set incsearch
-set ignorecase smartcase " only search case sensitive if you include case
+set ignorecase smartcase
 
 " Stop comments from being at the start of newline
 set cinkeys-=0#
@@ -41,11 +43,16 @@ set indentkeys-=0#
 set wildmode=longest,list,full
 set wildmenu
 
+" Scrolling, nicer scrolling when wrapping
+set sidescroll=1
+set sidescrolloff=10
+set scrolloff=3
+
 """""""""""""""""
 " Theme/Colours "
 """""""""""""""""
 set background=dark " we are using a dark background
-" colorscheme elflord " my theme
+" colorscheme elflord 
 
 " Set perl comment colour to be red
 " highlight Comment ctermfg=red
@@ -66,9 +73,7 @@ set nowritebackup
 """"""""""
 " Vim UI "
 """"""""""
-" set lsp=0 " space it out a little more (easier to read)
 set ruler " Always show current positions along the bottom 
-" set cmdheight=2 " the command bar is 2 high
 set lz " do not redraw while running macros (much faster) (LazyRedraw)
 set hid " you can change buffer without saving
 set backspace=2 " make backspace work normal
@@ -140,6 +145,7 @@ map <F3> :!perldoc <cfile><CR>
 " map <F12> :%!perltidy<CR>
 
 
+" Wrap visually, not by actual line
 nmap j gj
 nmap k gk
 
