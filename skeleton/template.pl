@@ -13,5 +13,5 @@ use strict;
 use warnings;
 
 use Encode qw/encode decode/;
-use Data::Show;
+use DDP;
 

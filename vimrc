@@ -24,9 +24,10 @@ set wildmode=list:longest,full
 set splitright " vertical split opens on the right
 
 " Indenting level
+" Expand tabs to be spaces
 set ts=4
 set cindent shiftwidth=4
-set et " Expand tabs to be spaces
+set et
 
 " Search settings
 " only search case sensitive if you include case
@@ -142,7 +143,8 @@ map <F11> gg:1,3s/^/#/G:s/^/#/
 " shift-k for perldoc -f (uses standard vim options set by perl syntax)
 " See perl.vim in ftplugins
 map <F3> :!perldoc <cfile><CR>
-" map <F12> :%!perltidy<CR>
+map <F12> :%!perltidy -i=2 -st<CR>
+vmap <F12> :!perltidy -i=2 -st<CR>
 
 
 " Wrap visually, not by actual line
@@ -165,8 +167,6 @@ au BufNewFile,BufRead *.t set filetype=perl
 """"""""""""
 iab xdate <c-r>=strftime("%y-%m-%d %H:%M:%S")<cr>
 iab eric ERIC IS BANANAMAN!!!
-" iab udd use Data::Dumper;
-" iab ddd die(Dumper($
 
 """""""""""""
 " Templates "
@@ -189,7 +189,7 @@ autocmd BufNewFile,BufRead *.t compiler perl
 fun! SetInviewPackage()
     let fname=expand('%:p')
 
-    let paths=['/opt/inview/perl_lib', '/home/shumphrey/git/perl_lib', '/opt/inview/web_internal/lib', '/home/shumphrey/web_internal/lib']
+    let paths=['/opt/inview/perl_lib', '/home/shumphrey/git/perl_lib', '/opt/inview/web_internal/lib', '/home/shumphrey/web_internal/lib','/home/shumphrey/Projects/web_internal/lib','/home/shumphrey/Projects/infra_interim/perl_lib']
     for path in paths
         let index=matchend(fname, path)
         if index > -1
