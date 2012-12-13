@@ -202,3 +202,12 @@ fun! SetInviewPackage()
         endif
     endfor
 endfun
+
+"""""""""""""""""""""""""""""""""""""""""""
+" enable snipmate and sparkup for tt2html
+"""""""""""""""""""""""""""""""""""""""""""
+
+augroup sparkup_types
+  autocmd!
+  autocmd FileType tt2html,php runtime! ftplugin/html/sparkup.vim
+augroup END
