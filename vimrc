@@ -161,6 +161,7 @@ au BufNewFile,BufRead *.tt set filetype=tt2html
 au BufNewFile,BufRead process set filetype=perl
 au BufNewFile,BufRead *.psgi set filetype=perl
 au BufNewFile,BufRead *.t set filetype=perl
+au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml
 
 """"""""""""
 " Aliases  "
