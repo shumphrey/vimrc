@@ -135,17 +135,6 @@ set pastetoggle=<F6>
 map <F7> :sp <cfile><CR>
 map <F8> :vs <cfile><CR>
 
-map <F9> :s/^/#/g<CR>
-map <F10> :s/^#//g<CR>
-
-map <F11> gg:1,3s/^/#/G:s/^/#/
-
-" shift-k for perldoc -f (uses standard vim options set by perl syntax)
-" See perl.vim in ftplugins
-map <F3> :!perldoc <cfile><CR>
-map <F12> :%!perltidy -i=2 -st<CR>
-vmap <F12> :!perltidy -i=2 -st<CR>
-
 
 " Wrap visually, not by actual line
 nmap j gj
@@ -158,10 +147,10 @@ nmap k gk
 " Set template::toolkit files to use the tt2html syntax plugin
 au BufNewFile,BufRead *.tt set filetype=tt2html
 " Set JB process files to be filetype perl
-au BufNewFile,BufRead process set filetype=perl
 au BufNewFile,BufRead *.psgi set filetype=perl
 au BufNewFile,BufRead *.t set filetype=perl
 au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml
+autocmd BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e
 
 """"""""""""
 " Aliases  "
@@ -172,7 +161,6 @@ iab eric ERIC IS BANANAMAN!!!
 """""""""""""
 " Templates "
 """""""""""""
-autocmd BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e|call SetInviewPackage()
 " set verbose=9
 
 """""""""""""""""""
@@ -183,31 +171,9 @@ autocmd BufNewFile,BufRead *.pl compiler perl
 autocmd BufNewFile,BufRead *.pm compiler perl
 autocmd BufNewFile,BufRead *.t compiler perl
 
-
-""""""""""""""""""
-" Functions
-""""""""""""""""""
-fun! SetInviewPackage()
-    let fname=expand('%:p')
-
-    let paths=['/opt/inview/perl_lib', '/home/shumphrey/git/perl_lib', '/opt/inview/web_internal/lib', '/home/shumphrey/web_internal/lib','/home/shumphrey/Projects/web_internal/lib','/home/shumphrey/Projects/infra_interim/perl_lib']
-    for path in paths
-        let index=matchend(fname, path)
-        if index > -1
-            let len=strlen(fname) - 3 - index
-            let pname=strpart(fname, index, len)
-            let parts=split(pname, '/')
-            let package=join(parts, '::')
-            exec '1,$g/::package::/s/::package::/' . package
-            return
-        endif
-    endfor
-endfun
-
 """""""""""""""""""""""""""""""""""""""""""
 " enable snipmate and sparkup for tt2html
 """""""""""""""""""""""""""""""""""""""""""
-
 augroup sparkup_types
   autocmd!
   autocmd FileType tt2html,php runtime! ftplugin/html/sparkup.vim

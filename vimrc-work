@@ -1,0 +1,25 @@
+" Make jb files read as perl
+au BufNewFile,BufRead process set filetype=perl
+
+" Load up my mangle function for .pm files
+autocmd BufNewFile *.pm call SetInviewPackage()
+
+""""""""""""""""""
+" Functions
+""""""""""""""""""
+fun! SetInviewPackage()
+    let fname=expand('%:p')
+
+    let paths=['/opt/inview/perl_lib', '/home/shumphrey/git/perl_lib', '/opt/inview/web_internal/lib', '/home/shumphrey/web_internal/lib','/home/shumphrey/Projects/web_internal/lib','/home/shumphrey/Projects/infra_interim/perl_lib']
+    for path in paths
+        let index=matchend(fname, path)
+        if index > -1
+            let len=strlen(fname) - 3 - index
+            let pname=strpart(fname, index, len)
+            let parts=split(pname, '/')
+            let package=join(parts, '::')
+            exec '1,$g/::package::/s/::package::/' . package
+            return
+        endif
+    endfor
+endfun

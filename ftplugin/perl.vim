@@ -33,6 +33,7 @@ let s:tagsfile = tempname()
 function s:do_tags(filename)
     perl <<EOF
         my $filename = VIM::Eval('a:filename');
+        return if !-f $filename;
 
         $naive_tagger->process(files => $filename, refresh=>1 );
 
@@ -108,6 +109,22 @@ if !exists("perlpath")
 endif
 
 let &l:path=perlpath
+
+""""""""""""""""""""""""""""""""
+" My own perl key bindings
+map <F9> :s/^/#/g<CR>
+map <F10> :s/^#//g<CR>
+
+" map <F11> gg:1,3s/^/#/G:s/^/#/
+
+" shift-k for perldoc -f (uses standard vim options set by perl syntax)
+" See perl.vim in ftplugins
+map <F3> :!perldoc <cfile><CR>
+map <F12> :%!perltidy -i=2 -st<CR>
+vmap <F12> :!perltidy -i=2 -st<CR>
+
+
+
 "---------------------------------------------
 
 " Undo the stuff we changed.
