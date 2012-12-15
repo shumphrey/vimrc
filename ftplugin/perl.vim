@@ -120,8 +120,8 @@ map <F10> :s/^#//g<CR>
 " shift-k for perldoc -f (uses standard vim options set by perl syntax)
 " See perl.vim in ftplugins
 map <F3> :!perldoc <cfile><CR>
-map <F12> :%!perltidy -i=2 -st<CR>
-vmap <F12> :!perltidy -i=2 -st<CR>
+map <F12> :%!perltidy -st<CR>
+vmap <F12> :!perltidy -st<CR>
 
 
 
