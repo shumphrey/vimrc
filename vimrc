@@ -7,6 +7,9 @@ call pathogen#infect()
 " See https://github.com/Lokaltog/vim-powerline
 let g:Powerline_symbols='fancy'
 
+" Ultisnips local snippets
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+
 """""""""""
 " General "
 """""""""""
@@ -146,7 +149,6 @@ nmap k gk
 " autocmd! " reset autocommands incase reloading vimrc
 " Set template::toolkit files to use the tt2html syntax plugin
 au BufNewFile,BufRead *.tt set filetype=tt2html
-" Set JB process files to be filetype perl
 au BufNewFile,BufRead *.psgi set filetype=perl
 au BufNewFile,BufRead *.t set filetype=perl
 au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml

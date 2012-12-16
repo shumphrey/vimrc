@@ -4,6 +4,8 @@
 " Homepage:      http://github.com/petdance/vim-perl
 " Bugs/requests: http://github.com/petdance/vim-perl/issues
 " Last Change:   2009-08-14
+"
+" Modified for my own purposes.
 
 if exists("b:did_ftplugin") | finish | endif
 let b:did_ftplugin = 1
@@ -12,6 +14,21 @@ let b:did_ftplugin = 1
 " compatibility mode.
 let s:save_cpo = &cpo
 set cpo-=C
+
+""""""""""""""""""""""""""""""""""""""""""
+" Ultisnips Dancer support
+""""""""""""""""""""""""""""""""""""""""""
+fun! s:detectTypeOfPerl()
+perl <<EOF
+    for( 0..$curbuf->Count ) {
+        if ( $curbuf->Get($_) =~ /use Dancer/ ) {
+            VIM::DoCommand(':UltiSnipsAddFiletypes dancer');
+            return;
+        }
+    }
+EOF
+endfun
+call s:detectTypeOfPerl()
 
 """"""""""""""""""""""""""""""""""""""""""
 " vim ctags stuff
