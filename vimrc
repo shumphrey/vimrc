@@ -7,7 +7,8 @@ call pathogen#infect()
 " See https://github.com/Lokaltog/vim-powerline
 let g:Powerline_symbols='fancy'
 
-" Ultisnips local snippets
+" Ultisnips local snippets and no warnings when no python
+let g:UltiSnipsNoPythonWarning = 1
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 
 """""""""""
@@ -151,7 +152,7 @@ nmap k gk
 au BufNewFile,BufRead *.tt set filetype=tt2html
 au BufNewFile,BufRead *.psgi set filetype=perl
 au BufNewFile,BufRead *.t set filetype=perl
-au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml
+au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml.javascript.css
 autocmd BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e
 
 """"""""""""
