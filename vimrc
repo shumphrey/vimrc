@@ -29,10 +29,13 @@ set cf " enable error files and error jumping
 " set ffs=dos,unix,mac " support all three, in this order
 set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,- " none of these should be word dividers, so make them not be
-set wildmode=list:longest,full
 set splitright " vertical split opens on the right
+
+" Add a column indicating when you approach 80 columns
+" Make relative numbers appear on the left.
 set number relativenumber " relative numbering
-set colorcolumn=80
+set colorcolumn=+2
+hi ColorColumn ctermbg=darkgrey guibg=lightgrey
 
 " Indenting level
 " Expand tabs to be spaces
@@ -93,17 +96,12 @@ set whichwrap+=<,>,h,l  " backspace and cursor keys wrap to
 " set mouse=a " use mouse everywhere
 " set shortmess=atI " shortens messages to avoid 'press a key' prompt 
 set report=0 " tell us when anything is changed via :...
-set noerrorbells " don't make noise
 " make the splitters between windows be blank
 " set fillchars=vert:\ ,stl:\ ,stlnc:\
 
 " indicate when a line is wrapped by prefixing wrapped line with '> '
 " set showbreak=>\ 
 
-
-"""""""""""""""
-" Visual Cues "
-"""""""""""""""
 " show matching brackets
 set showmatch
 " how many tenths of a second to blink matching brackets for
