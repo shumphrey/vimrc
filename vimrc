@@ -11,10 +11,15 @@ let g:Powerline_symbols='fancy'
 let g:UltiSnipsNoPythonWarning = 1
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 
+" Acme::MetaSyntactic
+imap ,n <C-R>=GetMetaSyntacticWord()<C-M>
+map ,n "=GetMetaSyntacticWord()<C-M>p
+
 """""""""""
 " General "
 """""""""""
 
+let mapleader = ","
 set nocompatible " get out of horrible vi-compatible mode
 filetype on " detect the type of file
 filetype plugin on " load filetype plugins
@@ -26,6 +31,8 @@ set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,- " none of these should be word dividers, so make them not be
 set wildmode=list:longest,full
 set splitright " vertical split opens on the right
+set number relativenumber " relative numbering
+set colorcolumn=80
 
 " Indenting level
 " Expand tabs to be spaces

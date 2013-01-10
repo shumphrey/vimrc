@@ -15,7 +15,7 @@ endif
 let s:cpo_save = &cpo
 set cpo-=C
 
-CompilerSet makeprg=perlcritic\ -verbose\ 1\ -2\ %
+CompilerSet makeprg=perlcritic\ -verbose\ 1\ -3\ %
 CompilerSet errorformat=%f:%l:%c:%m
 
 let &cpo = s:cpo_save
