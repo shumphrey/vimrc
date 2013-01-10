@@ -38,6 +38,7 @@ setlocal iskeyword+=:  " make tags with :: in them useful
 if ! exists("s:defined_functions")
 function s:init_tags()
     perl <<EOF
+        use Cwd;
         use Perl::Tags;
         $naive_tagger = Perl::Tags::Naive->new( max_level=>2 );
             # only go one level down by default
@@ -49,6 +50,7 @@ let s:tagsfile = tempname()
 
 function s:do_tags(filename)
     perl <<EOF
+        use Cwd;
         my $filename = VIM::Eval('a:filename');
         return if !-f $filename;
 

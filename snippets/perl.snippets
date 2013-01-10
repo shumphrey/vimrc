@@ -6,3 +6,23 @@ endsnippet
 snippet self "my ( $self ) = @_"
 my ( $self$1 ) = @_;
 endsnippet
+
+snippet ddp "Data::Printer p"
+use Data::Printer; p $1
+endsnippet
+
+snippet pod "POD section"
+=item ${1:NAME}
+
+${2:...}
+
+=cut
+endsnippet
+
+snippet psgi_test "$t->run_psgi_test(sub { ... })"
+$t->run_psgi_test('get', ${1:uri}, sub {
+  my $res = shift;
+  ok($res->is_success, 'OK response');
+  $2
+});
+endsnippet

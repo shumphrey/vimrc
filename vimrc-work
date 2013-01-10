@@ -1,5 +1,5 @@
 " Make jb files read as perl
-au BufNewFile,BufRead process set filetype=perl
+au BufNewFile,BufRead process set filetype=perl|compiler perl
 
 " Load up my mangle function for .pm files
 autocmd BufNewFile *.pm call SetInviewPackage()
