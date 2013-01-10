@@ -169,7 +169,7 @@ iab eric ERIC IS BANANAMAN!!!
 """""""""""""""""""
 " Compiler options
 """""""""""""""""""
-let g:perl_compiler_force_warnings = 0
+" let g:perl_compiler_force_warnings = 0
 autocmd BufNewFile,BufRead *.pl compiler perl
 autocmd BufNewFile,BufRead *.pm compiler perl
 autocmd BufNewFile,BufRead *.t compiler perl
