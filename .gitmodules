@@ -31,3 +31,6 @@
 [submodule "bundle/vim-acme-metasyntactic"]
 	path = bundle/vim-acme-metasyntactic
 	url = https://github.com/shumphrey/Vim-Acme-MetaSyntactic.git
+[submodule "bundle/ultisnips"]
+	path = bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
