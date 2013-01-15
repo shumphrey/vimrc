@@ -91,8 +91,8 @@ set autoread " auto reread if file hasn't changed in buffer
 " Vim UI "
 """"""""""
 set ruler " Always show current positions along the bottom 
-set lz " do not redraw while running macros (much faster) (LazyRedraw)
-set hid " you can change buffer without saving
+set lazyredraw " do not redraw while running macros (much faster) (LazyRedraw)
+set hidden " you can change buffer without saving
 set backspace=2 " make backspace work normal
 set whichwrap+=<,>,h,l  " backspace and cursor keys wrap to
 " set mouse=a " use mouse everywhere
@@ -129,7 +129,7 @@ endif
 " set statusline=%f\ %2*%m\ %1*%h%r%=[%{&encoding}\ %{&fileformat}\ %{strlen(&ft)?&ft:'none'}\ %{getfperm(@%)}]\ 0x%B\ %12.(%c:%l/%L%)
 
 " Super fancy status lines
-set statusline=%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}\ %{getfperm(@%)}]\ 0x%B\ %12.(%c:%l/%L%)
+set statusline=%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
 
 """"""""""""""""
 " Syntax stuff
