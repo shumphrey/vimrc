@@ -30,11 +30,12 @@ set cf " enable error files and error jumping
 set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,- " none of these should be word dividers, so make them not be
 set splitright " vertical split opens on the right
+set shiftround " << and >> snap to shiftwidth
 
 " Add a column indicating when you approach 80 columns
 " Make relative numbers appear on the left.
 set number relativenumber " relative numbering
-set colorcolumn=+2
+set colorcolumn=80
 hi ColorColumn ctermbg=darkgrey guibg=lightgrey
 
 " Indenting level
@@ -83,6 +84,7 @@ endif
 """""""""""""""""
 set nobackup
 set nowritebackup
+set autoread " auto reread if file hasn't changed in buffer
 
 
 """"""""""
@@ -113,6 +115,15 @@ set mat=4
 set novisualbell " don't blink
 set noerrorbells " no noises
 set laststatus=2 " always show the status line
+set display+=lastline " show as much as possible of the last line
+
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+  if &termencoding ==# 'utf-8' || &encoding ==# 'utf-8'
+    let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
+  endif
+endif
+
 " alternate statusline
 " set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [POS=%04l,%04v][%p%%]
 " set statusline=%f\ %2*%m\ %1*%h%r%=[%{&encoding}\ %{&fileformat}\ %{strlen(&ft)?&ft:'none'}\ %{getfperm(@%)}]\ 0x%B\ %12.(%c:%l/%L%)
@@ -148,6 +159,11 @@ map <F8> :vs <cfile><CR>
 " Wrap visually, not by actual line
 nmap j gj
 nmap k gk
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+endif
 
 """""""""""""
 " filetypes "
