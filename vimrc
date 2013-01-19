@@ -99,6 +99,7 @@ endif
 """""""""""""""""
 set nobackup
 set nowritebackup
+set autoread " auto reread if file hasn't changed in buffer
 
 """"""""""""""""
 " Syntax stuff
@@ -131,6 +132,11 @@ nmap k gk
 
 " Yank 'to end of line' like C and D
 nnoremap Y y$
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+endif
 
 """""""""""""
 " filetypes "
