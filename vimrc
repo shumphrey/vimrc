@@ -55,6 +55,8 @@ set sidescroll=1
 set sidescrolloff=10
 set scrolloff=3
 
+set omnifunc=syntaxcomplete#Complete
+
 """"""""""
 " Vim UI "
 """"""""""
@@ -87,7 +89,7 @@ hi ColorColumn ctermbg=darkgrey guibg=lightgrey
 """""""""""""""""
 " Theme/Colours "
 """""""""""""""""
-set background=dark " we are using a dark background
+set background=dark
 
 " If there is a SOLARIZED ENV variable, set this scheme
 if $SOLARIZED
@@ -100,11 +102,6 @@ endif
 set nobackup
 set nowritebackup
 set autoread " auto reread if file hasn't changed in buffer
-
-""""""""""""""""
-" Syntax stuff
-""""""""""""""""
-set omnifunc=syntaxcomplete#Complete
 
 """"""""""""
 " Mappings "
