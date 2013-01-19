@@ -138,8 +138,6 @@ endif
 """""""""""""
 " filetypes "
 """""""""""""
-" autocmd! " reset autocommands incase reloading vimrc
-" Set template::toolkit files to use the tt2html syntax plugin
 au BufNewFile,BufRead *.tt set filetype=tt2html
 au BufNewFile,BufRead *.psgi set filetype=perl
 au BufNewFile,BufRead *.t set filetype=perl
@@ -156,9 +154,7 @@ iab eric ERIC IS BANANAMAN!!!
 " Compiler options
 """""""""""""""""""
 " let g:perl_compiler_force_warnings = 0
-autocmd BufNewFile,BufRead *.pl compiler perl
-autocmd BufNewFile,BufRead *.pm compiler perl
-autocmd BufNewFile,BufRead *.t compiler perl
+autocmd BufNewFile,BufRead *.pl,*.pm,*.t compiler perl
 
 """""""""""""""""""""""""""""""""""""""""""
 " enable snipmate and sparkup for tt2html
