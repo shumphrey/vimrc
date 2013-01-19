@@ -28,7 +28,6 @@ perl <<EOF
     }
 EOF
 endfun
-call s:detectTypeOfPerl()
 
 """"""""""""""""""""""""""""""""""""""""""
 " vim ctags stuff
@@ -64,17 +63,20 @@ function s:do_tags(filename)
 EOF
 endfunction
 
-call s:init_tags() " only the first time
-
 let s:defined_functions = 1
 endif
 
-call s:do_tags(expand('%'))
+if has('perl')
+  call s:init_tags() " only the first time
+  call s:do_tags(expand('%'))
+  augroup perltags
+  au!
+  autocmd BufRead,BufWritePost *.pm,*.pl call s:do_tags(expand('%'))
+  augroup END
 
-augroup perltags
-au!
-autocmd BufRead,BufWritePost *.pm,*.pl call s:do_tags(expand('%'))
-augroup END
+  "" Other snippets
+  call s:detectTypeOfPerl()
+endif
 
 
 setlocal formatoptions+=crq

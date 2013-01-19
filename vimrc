@@ -24,8 +24,8 @@ set nocompatible    " get out of horrible vi-compatible mode
 filetype indent on  " detect the type of file and load indent files
 filetype plugin on  " load filetype plugins
 syntax on           " syntax highlighting on
-set history=1000    " How many lines of history to remember
 
+set history=1000    " How many lines of history to remember
 set cf              " enable error files and error jumping
 set viminfo+=!      " make sure it can save viminfo
 set isk+=_,$,@,%,-  " none of these should be word dividers, so make them not be
@@ -68,9 +68,8 @@ set whichwrap+=<,>,h,l  " backspace and cursor keys wrap over lines
 " show matching brackets for 4 seconds
 set showmatch
 set matchtime=4
-" set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$ " what to show when I hit :set list
-set novisualbell " don't blink
-set noerrorbells " no noises
+set novisualbell  " don't blink
+set noerrorbells  " no noises
 
 set ruler         " Always show current positions along the bottom 
 set laststatus=2  " always show the status line
