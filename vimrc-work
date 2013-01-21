@@ -1,25 +1,55 @@
-" Make jb files read as perl
-au BufNewFile,BufRead process set filetype=perl|compiler perl
+" vim: set ts=4 sw=4 et tw=78 :
 
-" Load up my mangle function for .pm files
-autocmd BufNewFile *.pm call SetInviewPackage()
+augroup perl_files
+    autocmd!
+    au BufNewFile,BufRead process set filetype=perl|compiler perl
+    autocmd BufNewFile *.pm call SetPerlPackageFromFile()
+augroup END
 
 """"""""""""""""""
 " Functions
 """"""""""""""""""
-fun! SetInviewPackage()
+
+" Designed to work in conjuntion with the template.pm skeleton file
+" Automatically replaces the package line with the appropriate name
+fun! SetPerlPackageFromFile()
+    " This expansion only has absolute path if the directory exists.
+    " So package only gets set if the full path (not including filename)
+    " exists
     let fname=expand('%:p')
 
-    let paths=['/opt/inview/perl_lib', '/home/shumphrey/git/perl_lib', '/opt/inview/web_internal/lib', '/home/shumphrey/web_internal/lib','/home/shumphrey/Projects/web_internal/lib','/home/shumphrey/Projects/infra_interim/perl_lib']
-    for path in paths
-        let index=matchend(fname, path)
-        if index > -1
-            let len=strlen(fname) - 3 - index
-            let pname=strpart(fname, index, len)
-            let parts=split(pname, '/')
+    " Match anything with /lib/ or starting with lib/ or perl_lib/
+    let index=matchend(fname, "[\</]lib/")
+    if index == -1
+        let index=matchend(fname, "[\</]perl_lib/")
+    endif
+
+    if index > -1
+        let len=strlen(fname) - 3 - index
+    else
+        let firstchar = strpart(fname, 0, 1)
+        if firstchar != "/"
+            let len=strlen(fname) - 3
+            let index=0
+        endif
+    endif
+
+    if exists("len")
+        let pname=strpart(fname, index, len)
+        let parts=split(pname, '/')
+
+        " Perl packages must start with a capital letter
+        " So get rid of all parts that don't have an uppercase first letter
+        let firstchar = strpart(get(parts, 0), 0, 1)
+        while firstchar !=# toupper(firstchar) && len(parts) > 0
+            let woo = remove(parts, 0)
+            let firstchar = strpart(get(parts, 0), 0, 1)
+        endwhile
+
+        if len(parts) > 0
             let package=join(parts, '::')
             exec '1,$g/::package::/s/::package::/' . package
-            return
         endif
-    endfor
+    endif
+    return
 endfun
