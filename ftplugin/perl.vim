@@ -35,47 +35,50 @@ endfun
 setlocal iskeyword+=:  " make tags with :: in them useful
 
 if ! exists("s:defined_functions")
-function s:init_tags()
-    perl <<EOF
-        use Cwd;
-        use Perl::Tags;
-        $naive_tagger = Perl::Tags::Naive->new( max_level=>2 );
-            # only go one level down by default
+    function s:init_tags()
+        perl <<EOF
+            use Cwd;
+            use Perl::Tags;
+            $naive_tagger = Perl::Tags::Naive->new( max_level=>2 );
+                # only go one level down by default
 EOF
-endfunction
+    endfunction
 
-" let vim do the tempfile cleanup and protection
-let s:tagsfile = tempname()
+    " let vim do the tempfile cleanup and protection
+    let s:tagsfile = tempname()
 
-function s:do_tags(filename)
-    perl <<EOF
-        use Cwd;
-        my $filename = VIM::Eval('a:filename');
-        return if !-f $filename;
+    function s:do_tags(filename)
+        perl <<EOF
+            use Cwd;
+            my $filename = VIM::Eval('a:filename');
+            return if !-f $filename;
 
-        $naive_tagger->process(files => $filename, refresh=>1 );
+            $naive_tagger->process(files => $filename, refresh=>1 );
 
-        my $tagsfile=VIM::Eval('s:tagsfile');
-        VIM::SetOption("tags+=$tagsfile");
+            my $tagsfile=VIM::Eval('s:tagsfile');
+            VIM::SetOption("tags+=$tagsfile");
 
-        # of course, it may not even output, for example, if there's nothing new to process
-        $naive_tagger->output( outfile => $tagsfile );
+            # of course, it may not even output, for example, if there's nothing new to process
+            $naive_tagger->output( outfile => $tagsfile );
 EOF
-endfunction
+    endfunction
 
-let s:defined_functions = 1
+    if has('perl')
+        call s:init_tags() " only the first time
+    endif
+
+    let s:defined_functions = 1
 endif
 
 if has('perl')
-  call s:init_tags() " only the first time
-  call s:do_tags(expand('%'))
-  augroup perltags
-  au!
-  autocmd BufRead,BufWritePost *.pm,*.pl call s:do_tags(expand('%'))
-  augroup END
+    call s:do_tags(expand('%'))
+    augroup perltags
+        au!
+        autocmd BufRead,BufWritePost *.pm,*.pl call s:do_tags(expand('%'))
+    augroup END
 
-  "" Other snippets
-  call s:detectTypeOfPerl()
+    "" Other snippets
+    call s:detectTypeOfPerl()
 endif
 
 
@@ -88,9 +91,9 @@ setlocal commentstring=#%s
 " Change the browse dialog on Win32 to show mainly Perl-related files
 if has("gui_win32")
     let b:browsefilter = "Perl Source Files (*.pl)\t*.pl\n" .
-		       \ "Perl Modules (*.pm)\t*.pm\n" .
-		       \ "Perl Documentation Files (*.pod)\t*.pod\n" .
-		       \ "All Files (*.*)\t*.*\n"
+                       \ "Perl Modules (*.pm)\t*.pm\n" .
+                       \ "Perl Documentation Files (*.pod)\t*.pod\n" .
+                       \ "All Files (*.*)\t*.*\n"
 endif
 
 " Provided by Ned Konz <ned at bike-nomad dot com>
@@ -113,44 +116,37 @@ set isfname+=:
 if !exists("perlpath")
     if executable("perl")
       try
-	if &shellxquote != '"'
-	    let perlpath = system('perl -e "print join(q/,/,@INC)"')
-	else
-	    let perlpath = system("perl -e 'print join(q/,/,@INC)'")
-	endif
-	let perlpath = substitute(perlpath,',.$',',,','')
+        if &shellxquote != '"'
+            let perlpath = system('perl -e "print join(q/,/,@INC)"')
+        else
+            let perlpath = system("perl -e 'print join(q/,/,@INC)'")
+        endif
+        let perlpath = substitute(perlpath,',.$',',,','')
       catch /E145:/
-	let perlpath = ".,,"
+        let perlpath = ".,,"
       endtry
     else
-	" If we can't call perl to get its path, just default to using the
-	" current directory and the directory of the current file.
-	let perlpath = ".,,"
+        " If we can't call perl to get its path, just default to using the
+        " current directory and the directory of the current file.
+        let perlpath = ".,,"
     endif
 endif
 
 let &l:path=perlpath
 
-""""""""""""""""""""""""""""""""
-" My own perl key bindings
-map <F9> :s/^/#/g<CR>
-map <F10> :s/^#//g<CR>
 
-" map <F11> gg:1,3s/^/#/G:s/^/#/
-
-" shift-k for perldoc -f (uses standard vim options set by perl syntax)
-" See perl.vim in ftplugins
 map <F3> :!perldoc <cfile><CR>
 map <F12> :%!perltidy -st<CR>
 vmap <F12> :!perltidy -st<CR>
-
 
 
 "---------------------------------------------
 
 " Undo the stuff we changed.
 let b:undo_ftplugin = "setlocal fo< com< cms< inc< inex< def< isf< kp<" .
-	    \	      " | unlet! b:browsefilter"
+            \         " | unlet! b:browsefilter"
 
 " Restore the saved compatibility options.
 let &cpo = s:save_cpo
+
+" vim: set ts=4 sw=4 et :
