@@ -136,8 +136,8 @@ let &l:path=perlpath
 
 
 map <F3> :!perldoc <cfile><CR>
-map <F12> :%!perltidy -st<CR>
-vmap <F12> :!perltidy -st<CR>
+map <F12> :%!perltidy -st -i <C-r>=&ts<CR><CR>
+vmap <F12> :!perltidy -st -i <C-r>=&ts<CR><CR>
 
 
 "---------------------------------------------
