@@ -81,8 +81,12 @@ set statusline=%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&e
 
 " Add a column indicating when you approach 80 columns
 " Make relative numbers appear on the left.
-set number relativenumber " relative numbering
-set colorcolumn=80
+if version >= 703
+  set number relativenumber " relative numbering
+  set colorcolumn=80
+else
+  set number
+endif
 hi ColorColumn ctermbg=darkgrey guibg=lightgrey
 
 """""""""""""""""
