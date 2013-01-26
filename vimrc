@@ -16,10 +16,10 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 imap ,n <C-R>=GetMetaSyntacticWord()<C-M>
 map ,n "=GetMetaSyntacticWord()<C-M>p
 
+
 """""""""""
 " General "
 """""""""""
-
 set nocompatible    " get out of horrible vi-compatible mode
 filetype indent on  " detect the type of file and load indent files
 filetype plugin on  " load filetype plugins
@@ -57,6 +57,7 @@ set scrolloff=3
 
 set omnifunc=syntaxcomplete#Complete
 
+
 """"""""""
 " Vim UI "
 """"""""""
@@ -89,6 +90,7 @@ else
 endif
 hi ColorColumn ctermbg=darkgrey guibg=lightgrey
 
+
 """""""""""""""""
 " Theme/Colours "
 """""""""""""""""
@@ -99,6 +101,7 @@ if $SOLARIZED
   colorscheme solarized
 endif
 
+
 """""""""""""""""
 " Files/Backups "
 """""""""""""""""
@@ -106,10 +109,10 @@ set nobackup
 set nowritebackup
 set autoread " auto reread if file hasn't changed in buffer
 
+
 """"""""""""
 " Mappings "
 """"""""""""
-
 let mapleader = ","
 
 " switch windows
@@ -142,12 +145,14 @@ if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endif
 
+
 """""""""""""
 " filetypes "
 """""""""""""
 " create autocommands only once
 augroup filetypes
   au!
+
   au BufNewFile,BufRead *.tt set filetype=tt2html.xhtml.javascript.css
   au BufNewFile,BufRead *.psgi,*.t set filetype=perl
 
@@ -157,13 +162,14 @@ augroup filetypes
   " Load boiler plate files if they exist
   au BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e
 
-  " Set the compiler for perl
-  au BufNewFile,BufRead *.pl,*.pm,*.t compiler perl
-
   " Set the sparkup filetypes
   autocmd FileType tt2html,php runtime! ftplugin/html/sparkup.vim
 
+  " Set the compiler for perl
+  au BufNewFile,BufRead *.pl,*.pm,*.t compiler perl
+
   " Automatically rewrite the skeleton file ::package:: line if appropriate
+  " Function is defined in after/ftplugin/perl.vim
   autocmd BufNewFile *.pm call SetPerlPackageFromFile()
 augroup END
 
@@ -173,52 +179,3 @@ augroup END
 """"""""""""
 iab xdate <c-r>=strftime("%y-%m-%d %H:%M:%S")<cr>
 iab eric ERIC IS BANANAMAN!!!
-
-
-""""""""""""""""""
-" Functions
-""""""""""""""""""
-
-" Designed to work in conjuntion with the template.pm skeleton file
-" Automatically replaces the package line with the appropriate name
-fun! SetPerlPackageFromFile()
-    " This expansion only has absolute path if the directory exists.
-    " So package only gets set if the full path (not including filename)
-    " exists
-    let fname=expand('%:p')
-
-    " Match anything with /lib/ or starting with lib/ or perl_lib/
-    let index=matchend(fname, "[\</]lib/")
-    if index == -1
-        let index=matchend(fname, "[\</]perl_lib/")
-    endif
-
-    if index > -1
-        let len=strlen(fname) - 3 - index
-    else
-        let firstchar = strpart(fname, 0, 1)
-        if firstchar != "/"
-            let len=strlen(fname) - 3
-            let index=0
-        endif
-    endif
-
-    if exists("len")
-        let pname=strpart(fname, index, len)
-        let parts=split(pname, '/')
-
-        " Perl packages must start with a capital letter
-        " So get rid of all parts that don't have an uppercase first letter
-        let firstchar = strpart(get(parts, 0), 0, 1)
-        while firstchar !=# toupper(firstchar) && len(parts) > 0
-            let woo = remove(parts, 0)
-            let firstchar = strpart(get(parts, 0), 0, 1)
-        endwhile
-
-        if len(parts) > 0
-            let package=join(parts, '::')
-            exec '1,$g/::package::/s/::package::/' . package
-        endif
-    endif
-    return
-endfun
