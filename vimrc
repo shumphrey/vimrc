@@ -33,6 +33,8 @@ set splitright      " vertical split opens on the right
 
 " Indenting level
 " Expand tabs to be spaces
+" Let files override global settings
+set modeline
 set tabstop=4
 set cindent shiftwidth=4
 set expandtab
