@@ -18,7 +18,7 @@
 	url = git://github.com/altercation/vim-colors-solarized.git
 [submodule "bundle/inpaste"]
 	path = bundle/inpaste
-	url = git@github.com:shumphrey/Vim-InPaste-Plugin.git
+	url = https://github.com/shumphrey/Vim-InPaste-Plugin.git
 [submodule "bundle/vim-commentary"]
 	path = bundle/vim-commentary
 	url = https://github.com/tpope/vim-commentary
