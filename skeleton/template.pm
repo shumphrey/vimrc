@@ -21,12 +21,11 @@ use 5.010;
 use strict;
 use warnings;
 
-use Moose;
+use Moo;
 
 
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+no Moo;
 
 =back
 
