@@ -117,9 +117,9 @@ if !exists("perlpath")
     if executable("perl")
       try
         if &shellxquote != '"'
-            let perlpath = system('perl -e "print join(q/,/,@INC)"')
+            let perlpath = system('perl -e "print join(q/,/,@INC, q/lib/)"')
         else
-            let perlpath = system("perl -e 'print join(q/,/,@INC)'")
+            let perlpath = system("perl -e 'print join(q/,/,@INC, q/lib/)'")
         endif
         let perlpath = substitute(perlpath,',.$',',,','')
       catch /E145:/
