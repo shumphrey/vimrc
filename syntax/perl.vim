@@ -1,21 +1,12 @@
 " Vim syntax file
 "
-" Language:     Perl with MooseX::Declare and Moose keywords
-" Maintainer:   Rafael Kitover <rkitover@cpan.org>
-" Last Change:  2011-01-19
-" Contributors: Denis Pokataev, Oleg Kostyuk
+" Language:     Perl with MooseX::Declare, Moose and Dancer keywords
+" Maintainer:   Steven Humphrey
 "
 " ORIGINAL VERSION:
 "
-" Language:	Perl
-" Maintainer:	Lukas Mai <l.mai@web.de>
-" Last Change:	2008-08-08
-"
-" Standard perl syntax file for vim by Nick Hibma <nick@van-laarhoven.org>
-" Modified by Lukas Mai
-"
-" Original version: Sonia Heimann <niania@netsurf.org>
-" Thanks to many people for their contribution.
+" This is based on various originals on the web. Google to find the
+" original sources
 
 " The following parameters are available for tuning the
 " perl syntax highlighting, with defaults given:
@@ -45,6 +36,10 @@ endif
 if !exists("perl_string_as_statement")
   let perl_string_as_statement=1
 endif
+if !exists("perl_include_dancer")
+  let perl_include_dancer=1
+endif
+
 
 " Moose, HTML::FormHandler and some other common functions
 syn match perlStatementProc		"\<\%(blessed\|reftype\|confess\|carp\|croak\|class_has\|has\|has_field\|inner\|is\|mutable\|immutable\|super\|requires\)\>"
@@ -581,6 +576,8 @@ HiLink perlElseIfError		Error
 HiLink perlSubPrototypeError	Error
 HiLink perlSubError		Error
 
+HiLink Dancer                   perlStatement
+
 delcommand HiLink
 
 " Syncing to speed up processing
@@ -604,6 +601,11 @@ endif
 
 syn sync match perlSyncPOD	grouphere perlPOD "^=[a-z]\S*"
 syn sync match perlSyncPOD	grouphere NONE "^=cut"
+
+if perl_include_dancer
+  runtime! syntax/perl_dancer.vim
+endif
+
 
 let b:current_syntax = "perl"
 

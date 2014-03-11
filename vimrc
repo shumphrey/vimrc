@@ -11,6 +11,10 @@ let g:Powerline_symbols='fancy'
 " Ultisnips local snippets and no warnings when no python
 let g:UltiSnipsNoPythonWarning = 1
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 
 " Acme::MetaSyntactic
 imap ,n <C-R>=GetMetaSyntacticWord()<C-M>
@@ -80,10 +84,15 @@ set showcmd       " show the last command
 set report=0      " Inform how many lines were changed by a command mode command
 
 " Super fancy status lines
-set statusline=%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
+set statusline=%2*%n:%0*%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
+" Allow for filetypes to define a FindSubName function
+augroup statusline
+  au!
+  au VimEnter *.pm set statusline=%1*%n:%0*%f\ %2*%m\ \ %<%r%{FindSubName()}\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
+augroup END
 
 " Add a column indicating when you approach 80 columns
-" Make relative numbers appear on the left.
+" " Make relative numbers appear on the left.
 if version >= 703
   set number relativenumber " relative numbering
   set colorcolumn=80
@@ -97,8 +106,9 @@ hi ColorColumn ctermbg=darkgrey guibg=lightgrey
 " Theme/Colours "
 """""""""""""""""
 set background=dark
+" hi StatusLine cterm=bold ctermbg=white ctermfg=black
+" hi StatusLineNC ctermbg=grey ctermfg=black
 
-" If there is a SOLARIZED ENV variable, set this scheme
 if $SOLARIZED
   colorscheme solarized
 endif
@@ -155,7 +165,7 @@ endif
 augroup filetypes
   au!
 
-  au BufNewFile,BufRead *.tt set filetype=tt2html.xhtml.javascript.css
+  au BufNewFile,BufRead *.tt,*.xmlbez set filetype=tt2html.javascript.xhtml.css
   au BufNewFile,BufRead *.psgi,*.t set filetype=perl
 
   " Make tt files use snippets from xhtml, javascript and css
@@ -175,9 +185,3 @@ augroup filetypes
   autocmd BufNewFile *.pm call SetPerlPackageFromFile()
 augroup END
 
-
-""""""""""""
-" Aliases  "
-""""""""""""
-iab xdate <c-r>=strftime("%y-%m-%d %H:%M:%S")<cr>
-iab eric ERIC IS BANANAMAN!!!
