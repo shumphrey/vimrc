@@ -30,7 +30,7 @@ filetype plugin on  " load filetype plugins
 syntax on           " syntax highlighting on
 
 set history=1000    " How many lines of history to remember
-" set cf              " enable error files and error jumping
+set confirm         " confirm y/n dialog            
 set viminfo+=!      " make sure it can save viminfo
 set isk+=_,$,@,%,-  " none of these should be word dividers, so make them not be
 set splitright      " vertical split opens on the right
@@ -92,7 +92,7 @@ augroup statusline
 augroup END
 
 " Add a column indicating when you approach 80 columns
-" " Make relative numbers appear on the left.
+" Make relative numbers appear on the left.
 if version >= 703
   set number relativenumber " relative numbering
   set colorcolumn=80
@@ -175,13 +175,12 @@ augroup filetypes
   au BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e
 
   " Set the sparkup filetypes
-  autocmd FileType tt2html,php runtime! ftplugin/html/sparkup.vim
+  au FileType tt2html,php runtime! ftplugin/html/sparkup.vim
 
   " Set the compiler for perl
   au BufNewFile,BufRead *.pl,*.pm,*.t compiler perl
 
   " Automatically rewrite the skeleton file ::package:: line if appropriate
   " Function is defined in after/ftplugin/perl.vim
-  autocmd BufNewFile *.pm call SetPerlPackageFromFile()
+  au BufNewFile *.pm call SetPerlPackageFromFile()
 augroup END
-
