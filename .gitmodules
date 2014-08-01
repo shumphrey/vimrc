@@ -34,3 +34,6 @@
 [submodule "bundle/ultisnips"]
 	path = bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
+[submodule "bundle/fugitive-gitlab"]
+	path = bundle/fugitive-gitlab
+	url = https://github.com/shumphrey/fugitive-gitlab.vim.git
