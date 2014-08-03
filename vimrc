@@ -165,8 +165,8 @@ endif
 augroup filetypes
   au!
 
-  au BufNewFile,BufRead *.tt,*.xmlbez set filetype=tt2html.javascript.xhtml.css
-  au BufNewFile,BufRead *.psgi,*.t set filetype=perl
+  au BufNewFile,BufRead *.tt,*.xmlbez,*.tx set filetype=tt2html.javascript.html.css
+  au BufNewFile,BufRead *.psgi,*.t,cpanfile set filetype=perl
 
   " Make tt files use snippets from xhtml, javascript and css
   au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml.javascript.css
@@ -175,7 +175,7 @@ augroup filetypes
   au BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e
 
   " Set the sparkup filetypes
-  au FileType tt2html,php runtime! ftplugin/html/sparkup.vim
+  au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
 
   " Set the compiler for perl
   au BufNewFile,BufRead *.pl,*.pm,*.t compiler perl
