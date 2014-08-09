@@ -37,3 +37,6 @@
 [submodule "bundle/fugitive-gitlab"]
 	path = bundle/fugitive-gitlab
 	url = https://github.com/shumphrey/fugitive-gitlab.vim.git
+[submodule "/home/shumphrey/.vim/bundle/gundo"]
+	path = /home/shumphrey/.vim/bundle/gundo
+	url = http://github.com/sjl/gundo.vim.git
