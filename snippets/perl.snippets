@@ -26,3 +26,7 @@ $t->run_psgi_test('get', ${1:uri}, sub {
   $2
 });
 endsnippet
+
+snippet requires "cpanrequires"
+req '${1:MODULE}',         '>= ${2:VERSION}';
+endsnippet
