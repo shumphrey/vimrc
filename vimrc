@@ -177,7 +177,7 @@ augroup filetypes
   " Set the sparkup filetypes
   au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
 
-  " Set the compiler for perl
+  " Set the compiler for languages
   au BufNewFile,BufRead *.pl,*.pm,*.t compiler perl
   au BufNewFile,BufRead *.js compiler eslint
 
