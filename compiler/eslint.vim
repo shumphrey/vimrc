@@ -1,7 +1,7 @@
 if exists("current_compiler")
     finish
 endif
-let current_compiler = "perlcritic"
+let current_compiler = "eslint"
 
 if exists(":CompilerSet") != 2 
     command -nargs=* CompilerSet setlocal <args>
@@ -10,7 +10,7 @@ endif
 let s:cpo_save = &cpo
 set cpo-=C
 
-CompilerSet errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ Error\ -\ %m
+CompilerSet errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ Error\ -\ %m,%f:\ line\ %l\\,\ col\ %c\\,\ Warning\ -\ %m
 CompilerSet makeprg=eslint\ -f\ compact\ %
 
 " automatically open quickfix window
