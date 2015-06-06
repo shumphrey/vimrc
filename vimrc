@@ -179,6 +179,7 @@ augroup filetypes
 
   " Set the compiler for perl
   au BufNewFile,BufRead *.pl,*.pm,*.t compiler perl
+  au BufNewFile,BufRead *.js compiler eslint
 
   " Automatically rewrite the skeleton file ::package:: line if appropriate
   " Function is defined in after/ftplugin/perl.vim
