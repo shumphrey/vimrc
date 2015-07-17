@@ -238,6 +238,10 @@ endif
 syntax cluster  htmlJavaScript contains=@javaScriptAll,javaScriptBracket,javaScriptParen,javaScriptBlock,javaScriptParenError
 syntax cluster  javaScriptExpression contains=@javaScriptAll,javaScriptBracket,javaScriptParen,javaScriptBlock,javaScriptParenError,@htmlPreproc
 
+" My own syntax mappings
+" add self and $this highlighting
+syntax keyword javaScriptType           self $this
+
 let b:current_syntax = "javascript"
 if main_syntax == 'javascript'
   unlet main_syntax
