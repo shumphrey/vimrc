@@ -39,6 +39,7 @@ if ! exists("s:defined_functions")
         perl <<EOF
             use Cwd;
             use Perl::Tags;
+            use Perl::Tags::Naive;
             $naive_tagger = Perl::Tags::Naive->new( max_level=>2 );
                 # only go one level down by default
 EOF
