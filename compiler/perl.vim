@@ -4,12 +4,12 @@
 " Last Change: 2006 Dec 19
 
 if exists("current_compiler")
-	finish
+    finish
 endif
 let current_compiler = "perlcritic"
 
 if exists(":CompilerSet") != 2 
-	command -nargs=* CompilerSet setlocal <args>
+    command -nargs=* CompilerSet setlocal <args>
 endif
 
 let s:cpo_save = &cpo
