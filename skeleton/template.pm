@@ -5,10 +5,6 @@
 =head1 DESCRIPTION
 
 
-=head1 AUTHOR
-
-Steven Humphrey
-
 =head1 METHODS
 
 =over
@@ -17,7 +13,6 @@ Steven Humphrey
 
 package ::package::;
 
-use 5.010;
 use strict;
 use warnings;
 
