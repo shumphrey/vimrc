@@ -61,13 +61,14 @@ set sidescroll=1
 set sidescrolloff=10
 set scrolloff=3
 
+" TODO: document this
 set omnifunc=syntaxcomplete#Complete
 
 
 """"""""""
 " Vim UI "
 """"""""""
-set lazyredraw          " do not redraw while running macros (much faster) (LazyRedraw)
+set lazyredraw          " no redraw while running macros for speed
 set hidden              " you can change buffer without saving
 set backspace=2         " make backspace work normally, 'indent,eol,start'
 set whichwrap+=<,>,h,l  " backspace and cursor keys wrap over lines
@@ -85,6 +86,7 @@ set report=0      " Inform how many lines were changed by a command mode command
 
 " Super fancy status lines
 set statusline=%2*%n:%0*%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
+
 " Allow for filetypes to define a FindSubName function
 augroup statusline
   au!
@@ -156,6 +158,8 @@ if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endif
 
+" keep semantics of 'u' being undo, map ctrl-u to undo menu
+map <silent> <C-u> :GundoToggle<CR>
 
 """""""""""""
 " filetypes "
