@@ -17,10 +17,9 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-
 " Acme::MetaSyntactic
-imap ,n <C-R>=GetMetaSyntacticWord()<C-M>
-map ,n "=GetMetaSyntacticWord()<C-M>p
+imap <F10> <C-R>=GetMetaSyntacticWord()<C-M>
+map <F10> "=GetMetaSyntacticWord()<C-M>p
 
 
 """""""""""
