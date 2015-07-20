@@ -125,5 +125,5 @@ fun! PerlRunCoverTests()
     " wincmd p
 endfun
 
-noremap <buffer> ,t :!prove -vl %<CR>
-map ,tb :call ProveTestsInBuffers()<CR>
+noremap <buffer> <leader>t :!prove -vl %<CR>
+map <leader>tb :call ProveTestsInBuffers()<CR>

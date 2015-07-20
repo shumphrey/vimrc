@@ -125,7 +125,7 @@ set autoread " auto reread if file hasn't changed in buffer
 """"""""""""
 " Mappings "
 """"""""""""
-let mapleader = ","
+let mapleader = "\<space>"
 
 " switch windows
 map <tab> <C-W>w
@@ -141,9 +141,8 @@ set pastetoggle=<F6>
 map <F7> :sp <cfile><CR>
 map <F8> :vs <cfile><CR>
 
-" ctrl-c saves and compiles
-nmap ,c :w<cr>:make<cr>
-imap ,c <esc>:w<cr>:make<cr>i
+" space c saves and compiles
+nmap <leader>c :w<cr>:make<cr>
 
 " Wrap visually, not by actual line
 nmap j gj
