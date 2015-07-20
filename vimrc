@@ -153,6 +153,11 @@ nmap k gk
 " Yank 'to end of line' like C and D
 nnoremap Y y$
 
+" I want to be at the end of my paste after pasting
+" I should be able to paste multiple times without mixing the pastes
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
