@@ -2,6 +2,8 @@
 """"""""""""""""
 " Plugin Stuff
 """"""""""""""""
+let mapleader = "\<space>"
+
 " Pathogen for easy plugin installation
 call pathogen#infect()
 
@@ -127,7 +129,6 @@ set autoread " auto reread if file hasn't changed in buffer
 """"""""""""
 " Mappings "
 """"""""""""
-let mapleader = "\<space>"
 
 " switch windows
 map <tab> <C-W>w
