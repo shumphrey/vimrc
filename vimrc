@@ -158,6 +158,14 @@ nnoremap Y y$
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
+" I want space y, space p, etc to be like y and p but from system memory
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
