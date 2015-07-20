@@ -132,9 +132,11 @@ set autoread " auto reread if file hasn't changed in buffer
 " switch windows
 map <tab> <C-W>w
 
+" Remap some common typos
 nmap :W :w
 nmap :X :x
 nmap :Q :q
+nmap q: :q
 
 map <F2> :set hls!<CR>
 map <F3> :set relativenumber!<CR>
