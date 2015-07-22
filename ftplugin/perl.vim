@@ -34,14 +34,31 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""
 setlocal iskeyword+=:  " make tags with :: in them useful
 
+let s:BIN = fnamemodify(resolve(expand("<sfile>:p")), ":h")
 if ! exists("s:defined_functions")
+    if ! exists('g:PT_use_ppi')
+        let g:PT_use_ppi = 0
+    endif
     function s:init_tags()
         perl <<EOF
             use Cwd;
-            use Perl::Tags;
-            use Perl::Tags::Naive;
-            $naive_tagger = Perl::Tags::Naive->new( max_level=>2 );
-                # only go one level down by default
+            my $bin = VIM::Eval('s:BIN');
+            require "$bin/fatpacked_perltags.pl" or die "Couldn't find Perl::Tags";
+            # PPI is probably not installed
+            # And is not fatpackable
+            # also slows down vim loading
+            my $ppi = VIM::Eval('g:PT_use_ppi');
+            if ( $ppi ) {
+                require Perl::Tags::PPI;
+            }
+            my %args = ( max_level => 2 );
+            $tagger = Perl::Tags::Hybrid->new(
+                %args,
+                taggers => [
+                    Perl::Tags::Naive::Moose->new(%args),
+                    $ppi ? Perl::Tags::PPI->new(%args) : (),
+                ]
+            );
 EOF
     endfunction
 
@@ -49,18 +66,18 @@ EOF
     let s:tagsfile = tempname()
 
     function s:do_tags(filename)
-        perl <<EOF
-            use Cwd;
-            my $filename = VIM::Eval('a:filename');
-            return if !-f $filename;
+    perl <<EOF
+        my $filename = VIM::Eval('a:filename');
+        return if !-f $filename;
 
-            $naive_tagger->process(files => $filename, refresh=>1 );
+        our $tagger;
+        $tagger->process(files => $filename, refresh=>1 );
 
-            my $tagsfile=VIM::Eval('s:tagsfile');
-            VIM::SetOption("tags+=$tagsfile");
+        my $tagsfile=VIM::Eval('s:tagsfile');
+        VIM::SetOption("tags+=$tagsfile");
 
-            # of course, it may not even output, for example, if there's nothing new to process
-            $naive_tagger->output( outfile => $tagsfile );
+        # of course, it may not even output, for example, if there's nothing new to process
+        $tagger->output( outfile => $tagsfile );
 EOF
     endfunction
 
@@ -72,10 +89,12 @@ EOF
 endif
 
 if has('perl')
+    " This only runs for perl, so do it on all new files
     call s:do_tags(expand('%'))
+    " Every time the buffer changes, we do the tags
     augroup perltags
         au!
-        autocmd BufRead,BufWritePost *.pm,*.pl call s:do_tags(expand('%'))
+        autocmd BufRead,BufWritePost *.pm,*.pl,*.t call s:do_tags(expand('%'))
     augroup END
 
     "" Other snippets
