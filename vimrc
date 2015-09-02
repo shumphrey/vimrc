@@ -189,8 +189,10 @@ augroup filetypes
   " Make tt files use snippets from xhtml, javascript and css
   au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml.javascript.css
 
-  " Load boiler plate files if they exist
-  au BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e
+  " Load boiler plate files
+  " Because it reads content of template file above the current line we have a
+  " blank line... delete it
+  au BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e | $d
 
   " Set the sparkup filetypes
   au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
