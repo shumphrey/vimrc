@@ -46,3 +46,6 @@
 [submodule "bundle/gundo"]
 	path = bundle/gundo
 	url = http://github.com/sjl/gundo.vim.git
+[submodule "bundle/perl"]
+	path = bundle/perl
+	url = https://github.com/vim-perl/vim-perl.git
