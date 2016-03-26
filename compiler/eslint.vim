@@ -11,7 +11,7 @@ let s:cpo_save = &cpo
 set cpo-=C
 
 CompilerSet errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ Error\ -\ %m,%f:\ line\ %l\\,\ col\ %c\\,\ Warning\ -\ %m
-CompilerSet makeprg=eslint\ -f\ compact\ %
+CompilerSet makeprg=eslint\ --fix\ -f\ compact\ %
 
 " automatically open quickfix window
 autocmd QuickFixCmdPost [^l]* nested cwindow
