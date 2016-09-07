@@ -23,18 +23,20 @@ CompilerSet errorformat=
     \%-G%.%#source\ OK,
     \%-G%.%#had\ compilation\ errors.,
     \%-G%.%#syntax\ OK,
-    \%m\ at\ %f\ line\ %l.,
     \%+A%.%#\ at\ %f\ line\ %l\\,%.%#,
-    \%+C%.%#
+    \%+C%.%#,
+    \%m\ at\ %f\ line\ %l.,
+
 
 " Explanation:
 " %f:%l:%c:%m,                       - perlcritic error format
 " %-G%f\ source\ OK,                 - ignore perlcritic source OK line
 " %-G%.%#had\ compilation\ errors.,  - Ignore the obvious.
 " %-G%.%#syntax\ OK,                 - Don't include the 'a-okay' message.
-" %m\ at\ %f\ line\ %l.,             - Most errors...
 " %+A%.%#\ at\ %f\ line\ %l\\,%.%#,  - As above, including ', near ...'
 " %+C%.%#                            -   ... Which can be multi-line.
+"                                    - %.%# gets replaced with .*
+" %m\ at\ %f\ line\ %l.,             - Most errors... (dot matches any char)
 
 " automatically open quickfix window
 autocmd QuickFixCmdPost [^l]* nested cwindow
