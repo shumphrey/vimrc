@@ -20,30 +20,33 @@ CompilerSet makeprg=~/.vim/compiler/perl_compiler.sh\ %
 " perl -c errorformat
 CompilerSet errorformat=
     \%f:%l:%c:%m,
-    \%-G%.%#source\ OK,
     \%-G%.%#had\ compilation\ errors.,
     \%-G%.%#syntax\ OK,
+    \%-G%.%#source\ OK,
+    \%m\ at\ %f\ line\ %l\\,%.%#DATA%.%#,
+    \%m\ at\ %f\ line\ %l.,
     \%+A%.%#\ at\ %f\ line\ %l\\,%.%#,
     \%+C%.%#,
-    \%m\ at\ %f\ line\ %l.,
 
 
 " Explanation:
-" %f:%l:%c:%m,                       - perlcritic error format
-" %-G%f\ source\ OK,                 - ignore perlcritic source OK line
-" %-G%.%#had\ compilation\ errors.,  - Ignore the obvious.
-" %-G%.%#syntax\ OK,                 - Don't include the 'a-okay' message.
-" %+A%.%#\ at\ %f\ line\ %l\\,%.%#,  - As above, including ', near ...'
-" %+C%.%#                            -   ... Which can be multi-line.
-"                                    - %.%# gets replaced with .*
-" %m\ at\ %f\ line\ %l.,             - Most errors... (dot matches any char)
+" %f:%l:%c:%m,                         - perlcritic error format
+" %-G%f\ source\ OK,                   - ignore perlcritic source OK line
+" %-G%.%#had\ compilation\ errors.,    - Ignore the obvious.
+" %-G%.%#syntax\ OK,                   - Don't include the 'a-okay' message.
+" %-G%.%#source\ OK,                   - Don't include the OK message
+" %m\ at\ %f\ line\ %l\\,%.%#DATA%.%#, - perl 5.24 seems to add <DATA>, line 1
+" %m\ at\ %f\ line\ %l.,               - Most errors...
+" %+A%.%#\ at\ %f\ line\ %l\\,%.%#,    - As above, including ', near ...'
+" %+C%.%#                              -   ... Which can be multi-line.
+"                                      - %.%# gets replaced with .*
 
 " automatically open quickfix window
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
 " automatically run make on save
-autocmd BufWritePost <buffer> silent! make | redraw!
+autocmd BufWritePost <buffer> silent! make! | redraw!
 
 " Don't run the autocmds when forcing it
 " Probably a better way of doing this as it introduces a visual delay
