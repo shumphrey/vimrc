@@ -1,5 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 FILE=$1
+LEVEL=$2
 
-perl -wc $FILE 2>&1 && perlcritic -verbose '%f:%l:%c:%m - %p\n' -3 $FILE
+LSET=""
+if [ ! -z "$LEVEL" ]; then
+    LSET="-$LEVEL"
+fi
+
+perl -wc $FILE 2>&1 && perlcritic $LSET -verbose '%f:%l:%c:%m - %p\n' $FILE
