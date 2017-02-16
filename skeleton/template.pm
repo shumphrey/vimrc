@@ -1,29 +1,12 @@
 =head1 NAME
 
-::package::
+package::replaceme
 
 =head1 DESCRIPTION
 
-
-=head1 METHODS
-
-=over
-
 =cut
 
-package ::package::;
+package package::replaceme;
 
-use strict;
-use warnings;
-
-use Moo;
-
-
-
-no Moo;
-
-=back
-
-=cut
 
 1;

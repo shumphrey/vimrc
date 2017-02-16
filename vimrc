@@ -186,7 +186,7 @@ augroup filetypes
   au BufNewFile,BufRead *.psgi,*.t,cpanfile set filetype=perl
 
   " Make tt files use snippets from xhtml, javascript and css
-  au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml.javascript.css
+  " au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml.javascript.css
 
   " Load boiler plate files
   " Because it reads content of template file above the current line we have a
@@ -201,6 +201,6 @@ augroup filetypes
   au BufNewFile,BufRead *.js compiler eslint
 
   " Automatically rewrite the skeleton file ::package:: line if appropriate
-  " Function is defined in after/ftplugin/perl.vim
-  au BufNewFile *.pm call SetPerlPackageFromFile()
+  " Function is defined in bundle/vim-perl-utils/ftplugin/perl.vim
+  au BufNewFile *.pm call perl#change_package_from_filename()
 augroup END
