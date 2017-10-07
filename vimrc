@@ -56,6 +56,7 @@ set ignorecase smartcase
 " A more sensible file tab completion
 set wildmode=longest,list,full
 set wildmenu
+set completeopt=longest,menuone,preview
 
 " Scrolling, nicer scrolling when wrapping
 set sidescroll=1
@@ -84,6 +85,8 @@ set ruler         " Always show current positions along the bottom
 set laststatus=2  " always show the status line
 set showcmd       " show the last command
 set report=0      " Inform how many lines were changed by a command mode command
+
+set formatoptions+=j " Delete comment character when joining commented lines
 
 " Super fancy status lines
 set statusline=%2*%n:%0*%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
