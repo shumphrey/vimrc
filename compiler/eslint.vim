@@ -16,15 +16,15 @@ CompilerSet errorformat=
 CompilerSet makeprg=eslint\ --fix\ -f\ compact\ %
 
 " automatically open quickfix window
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
+" autocmd QuickFixCmdPost [^l]* nested cwindow
+" autocmd QuickFixCmdPost    l* nested lwindow
 
 " automatically run make on save
-autocmd BufWritePost <buffer> silent! make | redraw!
+" autocmd BufWritePost <buffer> silent! make | redraw!
 
 " Don't run the autocmds when forcing it
 " Probably a better way of doing this as it introduces a visual delay
-nnoremap :w! :noautocmd w!
+" nnoremap :w! :noautocmd w!
 
 let &cpo = s:cpo_save
 unlet s:cpo_save

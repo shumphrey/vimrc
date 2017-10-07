@@ -11,7 +11,7 @@ let s:cpo_save = &cpo
 set cpo-=C
 
 if ! exists("b:perlcritic")
-    let b:perlcritic = 3
+    let b:perlcritic = 4
 endif
 
 CompilerSet makeprg=~/.vim/compiler/perl_compiler.sh\ %
@@ -45,11 +45,11 @@ autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
 " automatically run make on save
-autocmd BufWritePost <buffer> silent! execute 'make ' . b:perlcritic | redraw!
+" autocmd BufWritePost <buffer> silent! execute 'make ' . b:perlcritic | redraw!
 
 " Don't run the autocmds when forcing it
 " Probably a better way of doing this as it introduces a visual delay
-nnoremap :w! :noautocmd w!
+" nnoremap :w! :noautocmd w!
 
 let &cpo = s:cpo_save
 unlet s:cpo_save

@@ -205,3 +205,25 @@ augroup filetypes
   " Function is defined in bundle/vim-perl-utils/ftplugin/perl.vim
   au BufNewFile *.pm call perl#change_package_from_filename()
 augroup END
+
+
+""""""""""""""""
+" ALE Settings "
+""""""""""""""""
+let g:ale_sign_column_always = 1
+let g:ale_yaml_yamllint_options = '-c ~/.config/yamllint/config'
+let g:ale_perl_perlcritic_showrules = 1
+let g:ale_linters = { 'javascript': ['eslint'], 'perl': ['perl', 'perlcritic'] }
+let g:ale_fixers = {
+            \ 'javascript': [
+            \   'eslint',
+            \ ],
+            \ 'perl': [
+            \   'remove_trailing_lines',
+            \ ],
+            \}
+let g:ale_fix_on_save = 1
+" let g:ale_open_list = 1
+" let g:ale_keep_list_window_open = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
