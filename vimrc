@@ -95,13 +95,7 @@ augroup statusline
 augroup END
 
 " Add a column indicating when you approach 80 columns
-" Make relative numbers appear on the left.
-if version >= 703
-  set number relativenumber " relative numbering
-  set colorcolumn=80
-else
-  set number
-endif
+set colorcolumn=80
 hi ColorColumn ctermbg=darkgrey guibg=lightgrey
 
 
@@ -153,6 +147,10 @@ nmap k gk
 
 " Yank 'to end of line' like C and D
 nnoremap Y y$
+
+" numpad down for next in error list
+" map OA :cprev<CR>
+" map OB :cnext<CR>
 
 " I want to be at the end of my paste after pasting
 " I should be able to paste multiple times without mixing the pastes
