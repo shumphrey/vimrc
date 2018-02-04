@@ -17,6 +17,9 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" otherwise Gundo doesn't tend to work
+let g:gundo_prefer_python3 = 1
+
 " Acme::MetaSyntactic
 imap <F10> <C-R>=GetMetaSyntacticWord()<C-M>
 map <F10> "=GetMetaSyntacticWord()<C-M>p
