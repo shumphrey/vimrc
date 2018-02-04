@@ -186,12 +186,6 @@ map <silent> <C-u> :GundoToggle<CR>
 augroup filetypes
   au!
 
-  au BufNewFile,BufRead *.tt,*.xmlbez,*.tx set filetype=tt2html.javascript.html.css
-  au BufNewFile,BufRead *.psgi,*.t,cpanfile set filetype=perl
-
-  " Make tt files use snippets from xhtml, javascript and css
-  " au BufNewFile,BufRead *.tt UltiSnipsAddFiletypes xhtml.javascript.css
-
   " Load boiler plate files
   " Because it reads content of template file above the current line we have a
   " blank line... delete it
@@ -199,10 +193,6 @@ augroup filetypes
 
   " Set the sparkup filetypes
   au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
-
-  " Set the compiler for languages
-  au BufNewFile,BufRead *.pl,*.pm,*.t compiler perl
-  au BufNewFile,BufRead *.js compiler eslint
 
   " Automatically rewrite the skeleton file ::package:: line if appropriate
   " Function is defined in bundle/vim-perl-utils/ftplugin/perl.vim
