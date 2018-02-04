@@ -220,6 +220,7 @@ let g:ale_linters = { 'javascript': ['eslint'], 'perl': ['perl', 'perlcritic'] }
 let g:ale_fixers = {
             \ 'javascript': [
             \   'eslint',
+            \   'remove_trailing_lines',
             \ ],
             \ 'perl': [
             \   'remove_trailing_lines',
