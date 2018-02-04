@@ -64,3 +64,6 @@
 [submodule "bundle/vim-perl-utils"]
 	path = bundle/vim-perl-utils
 	url = https://github.com/shumphrey/vim-perl-utils
+[submodule "bundle/vim-rhubarb"]
+	path = bundle/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git
