@@ -4,6 +4,9 @@ let mapleader = "\<space>"
 
 " Pathogen for easy plugin installation
 call pathogen#infect()
+if has('python3')
+  call pathogen#infect('bundle-python/{}')
+endif
 
 " }}}
 
