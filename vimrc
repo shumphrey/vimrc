@@ -158,6 +158,7 @@ set background=dark
 
 if $SOLARIZED
   silent! colorscheme solarized
+  let g:solarized_termtrans = 1
 endif
 
 " Add a column indicating when you approach 80 columns
