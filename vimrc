@@ -47,6 +47,10 @@ set sidescroll=1
 set sidescrolloff=10
 set scrolloff=3
 
+" diffs open vertically by default
+set diffopt+=vertical
+
+
 " TODO: document this
 set omnifunc=syntaxcomplete#Complete
 
@@ -78,6 +82,7 @@ set showcmd       " show the last command
 set report=0      " Inform how many lines were changed by a command mode command
 
 set formatoptions+=j " Delete comment character when joining commented lines
+set formatoptions+=1 " don't break a line after a one-letter word, break before
 
 " }}}
 
@@ -164,6 +169,12 @@ map <silent> <C-u> :GundoToggle<CR>
 imap <F10> <C-R>=GetMetaSyntacticWord()<C-M>
 map <F10> "=GetMetaSyntacticWord()<C-M>p
 
+" Force myself to use hjkl
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 "}}}
 
 "{{{ Autogroups
@@ -222,5 +233,9 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:gundo_prefer_python3 = 1
 
 "}}}
+
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
 
 " vim: set ts=2 sw=2 et foldmethod=marker :
