@@ -1,16 +1,52 @@
-"{{{ Plugins
+" Plugins {{{
 """"""""""""""""
 let mapleader = "\<space>"
 
-" Pathogen for easy plugin installation
-call pathogen#infect()
-if has('python3')
-  call pathogen#infect('bundle-python/{}')
-endif
+call plug#begin()
+
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'tpope/vim-eunuch'
+Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+Plug 'SirVer/ultisnips'
+
+" Viml editing
+Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
+Plug 'tpope/vim-scriptease', { 'for': 'vim' }
+
+" Languages
+Plug 'vim-perl/vim-perl'
+Plug 'Glench/Vim-Jinja2-Syntax', { 'for': 'sls' }
+Plug 'saltstack/salt-vim', { 'for': 'sls' }
+Plug 'jelera/vim-javascript-syntax'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'tpope/vim-markdown'
+
+" Theme stuff
+Plug 'altercation/vim-colors-solarized'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+
+" Lint
+Plug 'w0rp/ale'
+
+" My plugins
+Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'shumphrey/scarletquarry'
+Plug 'shumphrey/vim-perl-utils', { 'for': 'perl' }
+Plug 'shumphrey/Vim-InPaste-Plugin'
+Plug 'shumphrey/Vim-Acme-MetaSyntactic'
+
+call plug#end()
 
 " }}}
 
-"{{{ General vim settings
+" General vim settings {{{
 """""""""""""""""""""""""
 set nocompatible    " get out of horrible vi-compatible mode
 filetype indent on  " detect the type of file and load indent files
@@ -64,9 +100,14 @@ set nobackup
 set nowritebackup
 set autoread " auto reread if file hasn't changed in buffer
 
+if has("persistent_undo")
+    set undodir=~/.vim/undodir/
+    set undofile
+endif
+
 " }}}
 
-"{{{ Vim UI settings
+" Vim UI settings {{{
 """""""""""""""""""""
 set lazyredraw          " no redraw while running macros for speed
 set hidden              " you can change buffer without saving
@@ -89,24 +130,29 @@ set formatoptions+=1 " don't break a line after a one-letter word, break before
 
 " }}}
 
-"{{{ Status Line
+" Status Line {{{
+""""""""""""""""""
 " Super fancy status lines
-set statusline=%2*%n:%0*%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
+function s:statusline_expr()
+  let mod  = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
+  let ro   = "%{&readonly ? '[RO] ' : ''}"
+  let ft   = "%0*%{len(&filetype) ? &filetype : 'unknown'}%2*"
+  let fug  = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
+  let pos  = ' %-12(%lL:%cC%V%) '
+  let func = " %{exists('*FindSubName') ? FindSubName() : ''}"
 
-" Allow for filetypes to define a FindSubName function
-augroup statusline
-  au!
-  au VimEnter *.pm set statusline=%1*%n:%0*%f\ %2*%m\ \ %<%r%{FindSubName()}\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
-augroup END
+  return '%2*%n:%0*%f %2*'.mod.func.' %1*%='.fug.'[%{&fileformat}/%{&encoding} '.ro.ft.'] 0x%B'.pos
+endfunction
+let &statusline = s:statusline_expr()
 
 "}}}
 
-"{{{ Theme/Colours
+" Theme/Colours {{{
 """""""""""""""""""
 set background=dark
 
 if $SOLARIZED
-  colorscheme solarized
+  silent! colorscheme solarized
 endif
 
 " Add a column indicating when you approach 80 columns
@@ -114,7 +160,7 @@ set colorcolumn=80
 hi ColorColumn ctermbg=darkgrey guibg=lightgrey
 " }}}
 
-"{{{ Mappings
+" Mappings {{{
 """"""""""""""
 
 " switch windows
@@ -165,7 +211,7 @@ if maparg('<C-L>', 'n') ==# ''
 endif
 
 " keep semantics of 'u' being undo, map ctrl-u to undo menu
-map <silent> <C-u> :GundoToggle<CR>
+map <silent> <C-u> :UndotreeToggle<CR>
 
 
 " Acme::MetaSyntactic
@@ -180,7 +226,7 @@ noremap <Right> <NOP>
 
 "}}}
 
-"{{{ Autogroups
+" Autogroups {{{
 """"""""""""""""
 
 " create autocommands only once
@@ -202,7 +248,7 @@ augroup END
 
 "}}}
 
-"{{{ Plugin Settings
+" Plugin Settings {{{
 """""""""""""""""""""
 
 """"""""""""""""
@@ -227,13 +273,10 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Ultisnips local snippets and no warnings when no python
 let g:UltiSnipsNoPythonWarning = 1
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-" otherwise Gundo doesn't tend to work
-let g:gundo_prefer_python3 = 1
 
 "}}}
 
