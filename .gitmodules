@@ -67,3 +67,6 @@
 [submodule "bundle/vim-fugitive"]
 	path = bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "bundle/vim-vinegar"]
+	path = bundle/vim-vinegar
+	url = git://github.com/tpope/vim-vinegar.git
