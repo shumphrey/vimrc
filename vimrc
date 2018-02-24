@@ -1,33 +1,14 @@
-" vim: set ts=2 sw=2 et :
-""""""""""""""""
-" Plugin Stuff
+"{{{ Plugins
 """"""""""""""""
 let mapleader = "\<space>"
 
 " Pathogen for easy plugin installation
 call pathogen#infect()
 
-" See https://github.com/Lokaltog/vim-powerline
-let g:Powerline_symbols='fancy'
+" }}}
 
-" Ultisnips local snippets and no warnings when no python
-let g:UltiSnipsNoPythonWarning = 1
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-" otherwise Gundo doesn't tend to work
-let g:gundo_prefer_python3 = 1
-
-" Acme::MetaSyntactic
-imap <F10> <C-R>=GetMetaSyntacticWord()<C-M>
-map <F10> "=GetMetaSyntacticWord()<C-M>p
-
-
-"""""""""""
-" General "
-"""""""""""
+"{{{ General vim settings
+"""""""""""""""""""""""""
 set nocompatible    " get out of horrible vi-compatible mode
 filetype indent on  " detect the type of file and load indent files
 filetype plugin on  " load filetype plugins
@@ -69,10 +50,17 @@ set scrolloff=3
 " TODO: document this
 set omnifunc=syntaxcomplete#Complete
 
+"""""""""""""""""
+" Files/Backups "
+"""""""""""""""""
+set nobackup
+set nowritebackup
+set autoread " auto reread if file hasn't changed in buffer
 
-""""""""""
-" Vim UI "
-""""""""""
+" }}}
+
+"{{{ Vim UI settings
+"""""""""""""""""""""
 set lazyredraw          " no redraw while running macros for speed
 set hidden              " you can change buffer without saving
 set backspace=2         " make backspace work normally, 'indent,eol,start'
@@ -91,6 +79,9 @@ set report=0      " Inform how many lines were changed by a command mode command
 
 set formatoptions+=j " Delete comment character when joining commented lines
 
+" }}}
+
+"{{{ Status Line
 " Super fancy status lines
 set statusline=%2*%n:%0*%f\ %2*%m\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
 
@@ -100,34 +91,23 @@ augroup statusline
   au VimEnter *.pm set statusline=%1*%n:%0*%f\ %2*%m\ \ %<%r%{FindSubName()}\ %1*%h%r%=%{fugitive#statusline()}[%{&fileformat}\ %{&encoding}\ %{strlen(&ft)?&ft:'none'}]\ 0x%B\ %12.(%c:%l/%L%)
 augroup END
 
-" Add a column indicating when you approach 80 columns
-set colorcolumn=80
-hi ColorColumn ctermbg=darkgrey guibg=lightgrey
+"}}}
 
-
-"""""""""""""""""
-" Theme/Colours "
-"""""""""""""""""
+"{{{ Theme/Colours
+"""""""""""""""""""
 set background=dark
-" hi StatusLine cterm=bold ctermbg=white ctermfg=black
-" hi StatusLineNC ctermbg=grey ctermfg=black
 
 if $SOLARIZED
   colorscheme solarized
 endif
 
+" Add a column indicating when you approach 80 columns
+set colorcolumn=80
+hi ColorColumn ctermbg=darkgrey guibg=lightgrey
+" }}}
 
-"""""""""""""""""
-" Files/Backups "
-"""""""""""""""""
-set nobackup
-set nowritebackup
-set autoread " auto reread if file hasn't changed in buffer
-
-
-""""""""""""
-" Mappings "
-""""""""""""
+"{{{ Mappings
+""""""""""""""
 
 " switch windows
 map <tab> <C-W>w
@@ -179,11 +159,18 @@ endif
 " keep semantics of 'u' being undo, map ctrl-u to undo menu
 map <silent> <C-u> :GundoToggle<CR>
 
-"""""""""""""
-" filetypes "
-"""""""""""""
+
+" Acme::MetaSyntactic
+imap <F10> <C-R>=GetMetaSyntacticWord()<C-M>
+map <F10> "=GetMetaSyntacticWord()<C-M>p
+
+"}}}
+
+"{{{ Autogroups
+""""""""""""""""
+
 " create autocommands only once
-augroup filetypes
+augroup vimrc
   au!
 
   " Load boiler plate files
@@ -199,6 +186,10 @@ augroup filetypes
   au BufNewFile *.pm call perl#change_package_from_filename()
 augroup END
 
+"}}}
+
+"{{{ Plugin Settings
+"""""""""""""""""""""
 
 """"""""""""""""
 " ALE Settings "
@@ -217,7 +208,19 @@ let g:ale_fixers = {
             \ ],
             \}
 let g:ale_fix_on_save = 1
-" let g:ale_open_list = 1
-" let g:ale_keep_list_window_open = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" Ultisnips local snippets and no warnings when no python
+let g:UltiSnipsNoPythonWarning = 1
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" otherwise Gundo doesn't tend to work
+let g:gundo_prefer_python3 = 1
+
+"}}}
+
+" vim: set ts=2 sw=2 et foldmethod=marker :
