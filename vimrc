@@ -27,6 +27,7 @@ Plug 'tpope/vim-markdown'
 
 " Theme stuff
 Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -54,7 +55,7 @@ filetype plugin on  " load filetype plugins
 syntax on           " syntax highlighting on
 
 set history=1000    " How many lines of history to remember
-set confirm         " confirm y/n dialog            
+set confirm         " confirm y/n dialog
 set viminfo+=!      " make sure it can save viminfo
 set isk+=_,$,@,%,-  " none of these should be word dividers, so make them not be
 set splitright      " vertical split opens on the right
@@ -120,7 +121,7 @@ set matchtime=4
 set novisualbell  " don't blink
 set noerrorbells  " no noises
 
-set ruler         " Always show current positions along the bottom 
+set ruler         " Always show current positions along the bottom
 set laststatus=2  " always show the status line
 set showcmd       " show the last command
 set report=0      " Inform how many lines were changed by a command mode command
@@ -133,7 +134,7 @@ set formatoptions+=1 " don't break a line after a one-letter word, break before
 " Status Line {{{
 """"""""""""""""""
 " Super fancy status lines
-function s:statusline_expr()
+function! s:statusline_expr()
   let mod  = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
   let ro   = "%{&readonly ? '[RO] ' : ''}"
   let ft   = "%0*%{len(&filetype) ? &filetype : 'unknown'}%2*"
@@ -144,6 +145,10 @@ function s:statusline_expr()
   return '%2*%n:%0*%f %2*'.mod.func.' %1*%='.fug.'[%{&fileformat}/%{&encoding} '.ro.ft.'] 0x%B'.pos
 endfunction
 let &statusline = s:statusline_expr()
+
+" When airline is installed...
+let g:airline_section_c = "%f %{&readonly ? '[RO] ' : ''} %{exists('*FindSubName') ? FindSubName() : ''}"
+" let g:airline#extensions#tabline#enabled = 1
 
 "}}}
 
