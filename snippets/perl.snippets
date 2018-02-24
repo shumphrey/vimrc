@@ -1,6 +1,6 @@
 
 snippet has "Moose/Moo has attribute"
-has '${1:name...}' => ( is  => 'ro'$2 );
+has '${1:name...}' => ( is  => 'lazy'$2 );
 endsnippet
 
 snippet self "my ( $self ) = @_"
@@ -17,16 +17,4 @@ snippet pod "POD section"
 ${2:...}
 
 =cut
-endsnippet
-
-snippet psgi_test "$t->run_psgi_test(sub { ... })"
-$t->run_psgi_test('get', ${1:uri}, sub {
-  my $res = shift;
-  ok($res->is_success, 'OK response');
-  $2
-});
-endsnippet
-
-snippet requires "cpanrequires"
-req '${1:MODULE}',         '>= ${2:VERSION}';
 endsnippet
