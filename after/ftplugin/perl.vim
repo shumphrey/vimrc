@@ -121,3 +121,4 @@ endfunction
 
 setlocal foldmethod=expr
 setlocal foldexpr=PodFolds()
+setlocal equalprg=perltidy
