@@ -39,7 +39,7 @@ Plug 'w0rp/ale'
 " My plugins
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'shumphrey/scarletquarry'
-Plug 'shumphrey/vim-perl-utils', { 'for': 'perl' }
+Plug 'shumphrey/vim-perl-utils'
 Plug 'shumphrey/Vim-InPaste-Plugin'
 Plug 'shumphrey/Vim-Acme-MetaSyntactic'
 
