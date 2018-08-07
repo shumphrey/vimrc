@@ -17,10 +17,7 @@ set cpo-=C
 " We only care about the STDERR when running inside vim?
 CompilerSet makeprg=prove\ 2>/dev/stdout\ 1>/dev/null
 
-CompilerSet errorformat=
-    \%m\ at\ %f\ line\ %l\\,%.%#, " Some lines have more than one 'at line',
-    \%m\ at\ %f\ line\ %l.,
-    \%m\ at\ %f\ line\ %l
+CompilerSet errorformat=.*\%m\ at\ %f\ line\ %l
     " \%-Gok\ %.%#,
     " \%+Z%.%#
 

@@ -12,9 +12,10 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-eunuch'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-dispatch'
 
 " Viml editing
-Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
+Plug 'junegunn/vader.vim'
 Plug 'tpope/vim-scriptease', { 'for': 'vim' }
 
 " Languages
@@ -28,6 +29,7 @@ Plug 'tpope/vim-markdown'
 " Theme stuff
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -195,8 +197,12 @@ nmap k gk
 nnoremap Y y$
 
 " numpad down for next in error list
-" map OA :cprev<CR>
-" map OB :cnext<CR>
+map OA :cprev<CR>
+map OB :cnext<CR>
+
+" ctrl-up and ctrl-down
+map <silent> [A :cprev<CR>
+map <silent> [B :cnext<CR>
 
 " I want to be at the end of my paste after pasting
 " I should be able to paste multiple times without mixing the pastes
@@ -263,6 +269,7 @@ augroup END
 let g:ale_sign_column_always = 1
 let g:ale_yaml_yamllint_options = '-c ~/.config/yamllint/config'
 let g:ale_perl_perlcritic_showrules = 1
+let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
 let g:ale_linters = { 'javascript': ['eslint'], 'perl': ['perl', 'perlcritic'] }
 let g:ale_fixers = {
             \ 'javascript': [
