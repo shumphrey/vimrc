@@ -241,6 +241,9 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" I've opened a root file and forgotten sudo
+cnoremap w!! w !sudo tee > /dev/null %
+
 "}}}
 
 " Autogroups {{{
