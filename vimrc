@@ -29,6 +29,7 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'tpope/vim-markdown'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
+Plug 'martinda/Jenkinsfile-vim-syntax'
 
 " Theme stuff
 Plug 'altercation/vim-colors-solarized'
