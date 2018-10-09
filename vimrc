@@ -27,6 +27,8 @@ Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'jelera/vim-javascript-syntax'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'tpope/vim-markdown'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 
 " Theme stuff
 Plug 'altercation/vim-colors-solarized'
