@@ -13,6 +13,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-dispatch'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
 
 " Viml editing
 Plug 'junegunn/vader.vim'
