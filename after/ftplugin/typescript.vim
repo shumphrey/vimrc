@@ -1,1 +1,1 @@
-set suffixesadd+=.tsx
+set suffixesadd+=.tsx,.js,.jsx
