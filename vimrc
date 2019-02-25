@@ -210,13 +210,6 @@ nmap k gk
 " Yank 'to end of line' like C and D
 nnoremap Y y$
 
-" numpad down for next in error list
-map OA :cprev<CR>
-map OB :cnext<CR>
-
-" ctrl-up and ctrl-down
-map <silent> [A :cprev<CR>
-map <silent> [B :cnext<CR>
 
 " I want to be at the end of my paste after pasting
 " I should be able to paste multiple times without mixing the pastes
