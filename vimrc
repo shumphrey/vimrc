@@ -307,4 +307,10 @@ if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 
+" automatically load changes to these files
+augroup vimrc
+    au!
+    au BufWritePost vimrc,.vimrc.local source ~/.vim/vimrc | silent! echom "Sourced vimrc"
+augroup END
+
 " vim: set ts=2 sw=2 et foldmethod=marker :
