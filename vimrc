@@ -35,6 +35,7 @@ Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'lifepillar/vim-solarized8' " a solarized that works
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -161,12 +162,14 @@ let g:airline_section_c = "%f %{&readonly ? '[RO] ' : ''} %{exists('*FindSubName
 
 " Theme/Colours {{{
 """""""""""""""""""
+" Make vim use full colour range
+" supported by iterm2 for example
+" echo $COLORTERM -> truecolor
+" theme may need overriding/replacing in ~/.vimrc.local
+set termguicolors
+let g:solarized_termtrans = 1
 set background=dark
-
-if $SOLARIZED
-  silent! colorscheme solarized
-  let g:solarized_termtrans = 1
-endif
+colorscheme solarized8
 
 " Add a column indicating when you approach 80 columns
 set colorcolumn=80
