@@ -14,6 +14,7 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'tpope/vim-dispatch'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
+Plug 'AndrewRadev/linediff.vim'
 
 " Viml editing
 Plug 'junegunn/vader.vim'
