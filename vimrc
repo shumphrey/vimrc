@@ -30,6 +30,12 @@ Plug 'tpope/vim-markdown'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
 Plug 'martinda/Jenkinsfile-vim-syntax'
+if has('job')
+  Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
+endif
 
 " Theme stuff
 Plug 'altercation/vim-colors-solarized'
