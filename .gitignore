@@ -5,3 +5,4 @@ spell/
 src/
 tags
 *.old
+tmp/
