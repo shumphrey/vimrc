@@ -175,7 +175,7 @@ let g:airline_section_c = "%f %{&readonly ? '[RO] ' : ''} %{exists('*FindSubName
 set termguicolors
 let g:solarized_termtrans = 1
 set background=dark
-colorscheme solarized8
+silent! colorscheme solarized8
 
 " Add a column indicating when you approach 80 columns
 set colorcolumn=80
