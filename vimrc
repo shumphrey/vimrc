@@ -116,8 +116,20 @@ set nowritebackup
 set autoread " auto reread if file hasn't changed in buffer
 
 if has("persistent_undo")
-    set undodir=~/.vim/undodir/
+    set undodir=~/.vim/tmp/undo//
     set undofile
+    if !isdirectory(expand(&undodir))
+        call mkdir(expand(&undodir), "p")
+    endif
+endif
+
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap//   " swap files
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
 endif
 
 " }}}
