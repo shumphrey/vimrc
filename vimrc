@@ -51,8 +51,8 @@ Plug 'tpope/vim-rhubarb'
 Plug 'w0rp/ale'
 
 " My plugins
-Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'shumphrey/scarletquarry'
+Plug 'shumphrey/fugitive-gitlab.vim', { 'branch': 'snippets' }
+" Plug 'shumphrey/scarletquarry'
 Plug 'shumphrey/vim-perl-utils'
 Plug 'shumphrey/Vim-InPaste-Plugin'
 Plug 'shumphrey/Vim-Acme-MetaSyntactic'
