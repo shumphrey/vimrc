@@ -8,17 +8,17 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-eunuch'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
-Plug 'tpope/vim-dispatch'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 Plug 'AndrewRadev/linediff.vim'
 
 " Viml editing
 Plug 'junegunn/vader.vim'
-Plug 'tpope/vim-scriptease', { 'for': 'vim' }
+Plug 'tpope/vim-scriptease'
 
 " Languages
 Plug 'vim-perl/vim-perl'
@@ -73,8 +73,13 @@ set splitright      " vertical split opens on the right
 " Let files override global settings
 set modeline
 set tabstop=4
-set cindent shiftwidth=4
+set shiftwidth=4
 set expandtab
+
+" set cindent     " use c based indent rules
+set autoindent  " copy indent from current line
+                " the file modules should set indentexpr and do the right
+                " thing anyway
 
 set shiftround  " << >> snap to multiples of shiftwidth
 set smarttab    " <tab> at start applies shiftwidth, otherwise tabstop
@@ -98,9 +103,17 @@ set scrolloff=3
 " diffs open vertically by default
 set diffopt+=vertical
 
+" display as much of last line as possible
+set display+=lastline
+" set list
+
+" always display tab chars
+set listchars=tab:>-
 
 " TODO: document this
 set omnifunc=syntaxcomplete#Complete
+set complete-=i         " Remove 'scan file' from completion list
+                        " (buffer is still scanned)
 
 """""""""""""""""
 " Files/Backups "
@@ -130,10 +143,10 @@ endif
 
 " Vim UI settings {{{
 """""""""""""""""""""
-set lazyredraw          " no redraw while running macros for speed
-set hidden              " you can change buffer without saving
-set backspace=2         " make backspace work normally, 'indent,eol,start'
-set whichwrap+=<,>,h,l  " backspace and cursor keys wrap over lines
+set lazyredraw                  " no redraw while running macros for speed
+set hidden                      " you can change buffer without saving
+set backspace=indent,eol,start  " make backspace work normally, 'indent,eol,start'
+set whichwrap+=<,>,h,l          " backspace and cursor keys wrap over lines
 
 " show matching brackets for 4 seconds
 set showmatch
@@ -149,6 +162,14 @@ set report=0      " Inform how many lines were changed by a command mode command
 set formatoptions+=j " Delete comment character when joining commented lines
 set formatoptions+=1 " don't break a line after a one-letter word, break before
 
+" its in sensible.vim ... I should probably have this?
+" if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+runtime! macros/matchit.vim
+" endif
+
+" Use the best diff algorithm
+" Can also set iwhite and +indent
+set diffopt+=algorithm:patience
 " }}}
 
 " Status Line {{{
@@ -259,19 +280,25 @@ cnoremap w!! w !sudo tee > /dev/null %
 
 " create autocommands only once
 augroup vimrc
-  au!
+    au!
 
-  " Load boiler plate files
-  " Because it reads content of template file above the current line we have a
-  " blank line... delete it
-  au BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e | $d
+    " Load boiler plate files
+    " Because it reads content of template file above the current line we have a
+    " blank line... delete it
+    au BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e | $d
 
-  " Set the sparkup filetypes
-  au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
+    " Set the sparkup filetypes
+    " au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
 
-  " Automatically rewrite the skeleton file ::package:: line if appropriate
-  " Function is defined in bundle/vim-perl-utils/ftplugin/perl.vim
-  au BufNewFile *.pm call perl#change_package_from_filename()
+    " Automatically rewrite the skeleton file ::package:: line if appropriate
+    " Function is defined in bundle/vim-perl-utils/ftplugin/perl.vim
+    au BufNewFile *.pm call perl#change_package_from_filename()
+
+    " automatically load changes to these files
+    au BufWritePost vimrc,.vimrc.local source ~/.vim/vimrc | silent! echom "Sourced vimrc"
+
+    " Save when losing focus
+    au FocusLost * :silent! wall
 augroup END
 
 "}}}
@@ -341,11 +368,5 @@ source ~/.vim/coc.vim
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
-
-" automatically load changes to these files
-augroup vimrc
-    au!
-    au BufWritePost vimrc,.vimrc.local source ~/.vim/vimrc | silent! echom "Sourced vimrc"
-augroup END
 
 " vim: set ts=2 sw=2 et foldmethod=marker :
