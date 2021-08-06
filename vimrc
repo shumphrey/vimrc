@@ -201,6 +201,7 @@ let g:airline_section_c = "%f %{&readonly ? '[RO] ' : ''} %{exists('*FindSubName
 " theme may need overriding/replacing in ~/.vimrc.local
 set termguicolors
 let g:solarized_termtrans = 1
+let g:solarized_italics = 0
 set background=dark
 silent! colorscheme solarized8
 
@@ -219,6 +220,10 @@ map <tab> <C-W>w
 nmap :W :w
 nmap :X :x
 nmap :Q :q
+nmap :E :e
+nmap :Sp :sp
+nmap :Vs :vs
+
 
 map <F2> :set hls!<CR>
 map <F3> :set relativenumber!<CR>
@@ -272,6 +277,19 @@ noremap <Right> <NOP>
 
 " I've opened a root file and forgotten sudo
 cnoremap w!! w !sudo tee > /dev/null %
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+nnoremap <c-o> <c-o>zz
+
+" Use sane regexes.
+nnoremap / /\v
+vnoremap / /\v
 
 "}}}
 
