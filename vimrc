@@ -25,17 +25,9 @@ Plug 'vim-perl/vim-perl'
 Plug 'Glench/Vim-Jinja2-Syntax', { 'for': 'sls' }
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'jelera/vim-javascript-syntax'
-Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'tpope/vim-markdown'
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
 Plug 'martinda/Jenkinsfile-vim-syntax'
-if has('job')
-  Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
-endif
+Plug 'leafgarland/typescript-vim'
 
 " Theme stuff
 Plug 'altercation/vim-colors-solarized'
@@ -47,8 +39,9 @@ Plug 'lifepillar/vim-solarized8' " a solarized that works
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
-" Lint
+" Lint & lang server
 Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " My plugins
 Plug 'shumphrey/fugitive-gitlab.vim', { 'branch': 'snippets' }
@@ -295,7 +288,6 @@ let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
 let g:ale_linters = {
       \ 'javascript': [
       \   'eslint',
-      \   'tsserver',
       \ ],
       \ 'perl': [
       \   'perl',
@@ -304,7 +296,6 @@ let g:ale_linters = {
       \}
 let g:ale_fixers = {
       \ 'javascript': [
-      \   'eslint',
       \   'remove_trailing_lines',
       \   'trim_whitespace'
       \ ],
@@ -313,12 +304,21 @@ let g:ale_fixers = {
       \   'trim_whitespace'
       \ ],
       \ 'typescript': [
-      \   'tslint'
+      \   'eslint',
+      \   'remove_trailing_lines',
+      \   'trim_whitespace'
       \ ]
       \}
-" let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" coc
+
+" vim-endwise conflicts with our coc mapping of enter
+let g:endwise_no_mappings = 1
+source ~/.vim/coc.vim
+
 
 "}}}
 

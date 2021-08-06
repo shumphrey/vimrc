@@ -1,0 +1,5 @@
+{
+  "coc.source.around.enable": false,
+  "javascript.suggestionActions.enabled": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
+}
