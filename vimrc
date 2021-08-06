@@ -28,6 +28,7 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'tpope/vim-markdown'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'leafgarland/typescript-vim'
+Plug 'vim-scripts/indentpython.vim' " fix indenting
 
 " Theme stuff
 Plug 'altercation/vim-colors-solarized'
@@ -285,6 +286,12 @@ let g:ale_sign_column_always = 1
 let g:ale_yaml_yamllint_options = '-c ~/.config/yamllint/config'
 let g:ale_perl_perlcritic_showrules = 1
 let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
+
+let g:ale_python_pylama_options = '--ignore E501,W503'
+
+" python -m pip install flake8
+" python -m pip install pylama
+      " \   'flake8',
 let g:ale_linters = {
       \ 'javascript': [
       \   'eslint',
@@ -292,12 +299,21 @@ let g:ale_linters = {
       \ 'perl': [
       \   'perl',
       \   'perlcritic'
-      \ ]
+      \ ],
+      \ 'python': [
+      \   'pylama',
+      \   'mypy'
+      \ ],
       \}
+"       " \   'flake8 --ignore E501'
 let g:ale_fixers = {
       \ 'javascript': [
       \   'remove_trailing_lines',
       \   'trim_whitespace'
+      \ ],
+      \ 'python': [
+      \   'remove_trailing_lines',
+      \   'trim_whitespace',
       \ ],
       \ 'perl': [
       \   'remove_trailing_lines',
