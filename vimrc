@@ -165,9 +165,9 @@ set formatoptions+=j " Delete comment character when joining commented lines
 set formatoptions+=1 " don't break a line after a one-letter word, break before
 
 " its in sensible.vim ... I should probably have this?
-" if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-runtime! macros/matchit.vim
-" endif
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
 
 " Use the best diff algorithm
 " Can also set iwhite and +indent
@@ -315,7 +315,8 @@ augroup vimrc
     au BufNewFile *.pm call perl#change_package_from_filename()
 
     " automatically load changes to these files
-    au BufWritePost vimrc,.vimrc.local source ~/.vim/vimrc | silent! echom "Sourced vimrc"
+    au BufWritePost .vimrc.local source ~/.vimrc.local | silent! echom "Sourced vimrc"
+    au BufWritePost vimrc source ~/.vim/vimrc | silent! echom "Sourced vimrc.local"
 
     " Save when losing focus
     au FocusLost * :silent! wall
@@ -376,7 +377,9 @@ let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+""""""""""""""""
 " coc
+""""""""""""""""
 
 " vim-endwise conflicts with our coc mapping of enter
 let g:endwise_no_mappings = 1
