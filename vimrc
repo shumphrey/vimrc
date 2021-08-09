@@ -15,6 +15,7 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 Plug 'AndrewRadev/linediff.vim'
+Plug 'junegunn/vim-emoji'
 
 " Viml editing
 Plug 'junegunn/vader.vim'
@@ -112,10 +113,20 @@ set display+=lastline
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 set list
 
-" TODO: document this
-set omnifunc=syntaxcomplete#Complete
-set complete-=i         " Remove 'scan file' from completion list
-                        " (buffer is still scanned)
+" ctrl-x
+"   ctrl-o -- omnifunc
+"   ctrl-u -- completefunc
+" see also, ctrl-n, ctrl-p, ctrl-f, ctrl-l, and more :help ins-completion
+
+" Not sure what syntaxcomplete#Complete is giving me
+" set omnifunc=syntaxcomplete#Complete
+
+" use vim-emoji for completion
+set completefunc=emoji#complete
+
+" Remove 'scan file' from ctrl-n/ctrl-p completion list
+" (buffer is still scanned)
+set complete-=i
 
 """""""""""""""""
 " Files/Backups "
