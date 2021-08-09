@@ -331,48 +331,31 @@ augroup END
 " ALE Settings "
 """"""""""""""""
 let g:ale_sign_column_always = 1
-let g:ale_yaml_yamllint_options = '-c ~/.config/yamllint/config'
+
 let g:ale_perl_perlcritic_showrules = 1
 let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
 
 let g:ale_python_pylama_options = '--ignore E501,W503'
 
-" python -m pip install flake8
-" python -m pip install pylama
-      " \   'flake8',
+
+" after/ftplugin/<lang>.vim might set some of the linters
+"
+" python -m pip install pylama mypy
+" npm install --save-dev eslint
+" cpanm -n Perl::Critic
 let g:ale_linters = {
-      \ 'javascript': [
-      \   'eslint',
-      \ ],
-      \ 'perl': [
-      \   'perl',
-      \   'perlcritic'
-      \ ],
-      \ 'python': [
-      \   'pylama',
-      \   'mypy'
-      \ ],
+      \ 'javascript': ['eslint'],
+      \ 'perl': ['perl', 'perlcritic'],
+      \ 'python': ['pylama', 'mypy'],
       \}
-"       " \   'flake8 --ignore E501'
+
 let g:ale_fixers = {
-      \ 'javascript': [
-      \   'remove_trailing_lines',
-      \   'trim_whitespace'
-      \ ],
-      \ 'python': [
-      \   'remove_trailing_lines',
-      \   'trim_whitespace',
-      \ ],
-      \ 'perl': [
-      \   'remove_trailing_lines',
-      \   'trim_whitespace'
-      \ ],
-      \ 'typescript': [
-      \   'eslint',
-      \   'remove_trailing_lines',
-      \   'trim_whitespace'
-      \ ]
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'javascript': ['eslint', 'remove_trailing_lines', 'trim_whitespace'],
+      \ 'typescript': ['eslint', 'remove_trailing_lines', 'trim_whitespace'],
+      \ 'markdown': [],
       \}
+
 let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
