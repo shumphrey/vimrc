@@ -72,7 +72,7 @@ set splitright      " vertical split opens on the right
 " Expand tabs to be spaces
 " Let files override global settings
 set modeline
-set tabstop=4
+set tabstop=8       " I never want tabs, so if a tab appears it should be long
 set shiftwidth=4
 set expandtab
 
@@ -105,10 +105,12 @@ set diffopt+=vertical
 
 " display as much of last line as possible
 set display+=lastline
-" set list
 
 " always display tab chars
-set listchars=tab:>-
+" always display trailing spaces
+" always display > at end of nowrapped text
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set list
 
 " TODO: document this
 set omnifunc=syntaxcomplete#Complete
