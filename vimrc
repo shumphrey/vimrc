@@ -30,7 +30,10 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'tpope/vim-markdown'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'leafgarland/typescript-vim'
+Plug 'cespare/vim-toml'
 Plug 'vim-scripts/indentpython.vim' " fix indenting
+Plug 'chr4/nginx.vim'
+Plug 'neoclide/jsonc.vim'
 
 " Theme stuff
 Plug 'altercation/vim-colors-solarized'
