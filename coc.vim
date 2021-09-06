@@ -1,6 +1,12 @@
 "
 " See https://github.com/neoclide/coc.nvim for examples
 "
+"
+" If coc needs language specific settings
+" Run `:CocConfig`
+"
+" If coc needs project specific settings
+" Run `:CocLocalConfig`
 
 set encoding=utf-8
 
@@ -70,8 +76,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -132,4 +136,9 @@ augroup aucoc
 
     " Update signature help on jump placeholder.
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
+    " Highlight the symbol and its references when holding the cursor.
+    if exists('*CocActionAsync')
+        autocmd CursorHold * silent call CocActionAsync('highlight')
+    endif
 augroup END

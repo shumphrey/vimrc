@@ -1,77 +1,21 @@
-" Plugins {{{
-""""""""""""""""
+
+" unlet! skip_defaults_vim
+" silent! source $VIMRUNTIME/defaults.vim
+
 let mapleader = "\<space>"
-
-call plug#begin()
-
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-unimpaired'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'tpope/vim-eunuch'
-Plug 'mileszs/ack.vim', { 'on': 'Ack' }
-Plug 'mattn/webapi-vim'
-Plug 'mattn/gist-vim'
-Plug 'AndrewRadev/linediff.vim'
-Plug 'junegunn/vim-emoji'
-
-" Viml editing
-Plug 'junegunn/vader.vim'
-Plug 'tpope/vim-scriptease'
-
-" Languages
-Plug 'vim-perl/vim-perl'
-Plug 'Glench/Vim-Jinja2-Syntax', { 'for': 'sls' }
-Plug 'saltstack/salt-vim', { 'for': 'sls' }
-Plug 'jelera/vim-javascript-syntax'
-Plug 'tpope/vim-markdown'
-Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'leafgarland/typescript-vim'
-Plug 'cespare/vim-toml'
-Plug 'vim-scripts/indentpython.vim' " fix indenting
-Plug 'chr4/nginx.vim'
-Plug 'neoclide/jsonc.vim'
-
-" Theme stuff
-Plug 'altercation/vim-colors-solarized'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'lifepillar/vim-solarized8' " a solarized that works
-
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-
-" Lint & lang server
-Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" My plugins
-Plug 'shumphrey/fugitive-gitlab.vim', { 'branch': 'snippets' }
-" Plug 'shumphrey/scarletquarry'
-Plug 'shumphrey/vim-perl-utils'
-Plug 'shumphrey/Vim-InPaste-Plugin'
-Plug 'shumphrey/Vim-Acme-MetaSyntactic'
-
-call plug#end()
-
-" }}}
 
 " General vim settings {{{
 """""""""""""""""""""""""
-set nocompatible    " get out of horrible vi-compatible mode
-filetype indent on  " detect the type of file and load indent files
-filetype plugin on  " load filetype plugins
-syntax on           " syntax highlighting on
+setglobal nocompatible  " get out of horrible vi-compatible mode
+filetype indent on      " detect the type of file and load indent files
+filetype plugin on      " load filetype plugins
+syntax on               " syntax highlighting on
 
-set history=1000    " How many lines of history to remember
-set confirm         " confirm y/n dialog
-set viminfo+=!      " make sure it can save viminfo
-set isk+=_,$,@,%,-  " none of these should be word dividers, so make them not be
-set splitright      " vertical split opens on the right
+set history=1000          " How many lines of history to remember
+set confirm               " confirm y/n dialog
+set viminfo+=!,%          " Save buffer list so that vim reopens buffers, save capitalized variables
+set iskeyword+=_,$,@,%,-  " none of these should be word dividers, so make them not be
+set splitright            " vertical split opens on the right
 
 " Indenting level
 " Expand tabs to be spaces
@@ -81,7 +25,6 @@ set tabstop=8       " I never want tabs, so if a tab appears it should be long
 set shiftwidth=4
 set expandtab
 
-" set cindent     " use c based indent rules
 set autoindent  " copy indent from current line
                 " the file modules should set indentexpr and do the right
                 " thing anyway
@@ -114,7 +57,8 @@ set display+=lastline
 " always display tab chars
 " always display trailing spaces
 " always display > at end of nowrapped text
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+" set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set listchars=tab:>\ ,extends:>,precedes:<,nbsp:+
 set list
 
 " ctrl-x
@@ -126,7 +70,7 @@ set list
 " set omnifunc=syntaxcomplete#Complete
 
 " use vim-emoji for completion
-set completefunc=emoji#complete
+setglobal completefunc=emoji#complete
 
 " Remove 'scan file' from ctrl-n/ctrl-p completion list
 " (buffer is still scanned)
@@ -135,25 +79,30 @@ set complete-=i
 """""""""""""""""
 " Files/Backups "
 """""""""""""""""
-set nobackup
-set nowritebackup
+" set nobackup
+" set nowritebackup " unclear why I want this... speed?
 set autoread " auto reread if file hasn't changed in buffer
 
-if has("persistent_undo")
+if has('persistent_undo')
     set undodir=~/.vim/tmp/undo//
     set undofile
     if !isdirectory(expand(&undodir))
-        call mkdir(expand(&undodir), "p")
+        call mkdir(expand(&undodir), 'p')
     endif
 endif
 
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
+    call mkdir(expand(&backupdir), 'p')
 endif
 if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
+    call mkdir(expand(&directory), 'p')
+endif
+
+" if has('win32') || has('nvim')
+if has('nvim')
+    setglobal runtimepath^=~/.vim runtimepath+=~/.vim/after
 endif
 
 " }}}
@@ -163,7 +112,7 @@ endif
 set lazyredraw                  " no redraw while running macros for speed
 set hidden                      " you can change buffer without saving
 set backspace=indent,eol,start  " make backspace work normally, 'indent,eol,start'
-set whichwrap+=<,>,h,l          " backspace and cursor keys wrap over lines
+" set whichwrap+=<,>,h,l          " backspace and cursor keys wrap over lines
 
 " show matching brackets for 4 seconds
 set showmatch
@@ -180,7 +129,7 @@ set formatoptions+=j " Delete comment character when joining commented lines
 set formatoptions+=1 " don't break a line after a one-letter word, break before
 
 " its in sensible.vim ... I should probably have this?
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &runtimepath) ==# ''
   runtime! macros/matchit.vim
 endif
 
@@ -205,27 +154,11 @@ endfunction
 let &statusline = s:statusline_expr()
 
 " When airline is installed...
-let g:airline_section_c = "%f %{&readonly ? '[RO] ' : ''} %{exists('*FindSubName') ? FindSubName() : ''}"
+let g:airline_section_c = "%{bufnr('%')}:%f %{&readonly ? '[RO] ' : ''} %{exists('*FindSubName') ? FindSubName() : ''}"
+" let g:airline_section_y = 'BN:%{bufnr("%")}'
 " let g:airline#extensions#tabline#enabled = 1
 
 "}}}
-
-" Theme/Colours {{{
-"""""""""""""""""""
-" Make vim use full colour range
-" supported by iterm2 for example
-" echo $COLORTERM -> truecolor
-" theme may need overriding/replacing in ~/.vimrc.local
-set termguicolors
-let g:solarized_termtrans = 1
-let g:solarized_italics = 0
-set background=dark
-silent! colorscheme solarized8
-
-" Add a column indicating when you approach 80 columns
-set colorcolumn=80
-hi ColorColumn ctermbg=darkgrey guibg=lightgrey
-" }}}
 
 " Mappings {{{
 """"""""""""""
@@ -240,6 +173,9 @@ nmap :Q :q
 nmap :E :e
 nmap :Sp :sp
 nmap :Vs :vs
+nmap :Bw :bw
+nmap :Bn :bn " need to learn to use unimpaired [b ]b
+nmap :Bp :bp
 
 
 map <F2> :set hls!<CR>
@@ -325,19 +261,20 @@ augroup vimrc
     " Set the sparkup filetypes
     " au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
 
-    " Automatically rewrite the skeleton file ::package:: line if appropriate
-    " Function is defined in bundle/vim-perl-utils/ftplugin/perl.vim
-    au BufNewFile *.pm call perl#change_package_from_filename()
-
     " automatically load changes to these files
-    au BufWritePost .vimrc.local source ~/.vimrc.local | silent! echom "Sourced vimrc"
-    au BufWritePost vimrc source ~/.vim/vimrc | silent! echom "Sourced vimrc.local"
+    au BufWritePost .vimrc.local ++nested source ~/.vimrc.local | silent! echom "Sourced vimrc"
+    au BufWritePost vimrc ++nested source ~/.vim/vimrc | silent! echom "Sourced vimrc.local"
 
     " Save when losing focus
     au FocusLost * :silent! wall
 augroup END
 
 "}}}
+
+" Language settings {{{
+""""""""""""""""""
+" See after/ftplugin/<lang>
+" }}}
 
 " Plugin Settings {{{
 """""""""""""""""""""
@@ -347,22 +284,10 @@ augroup END
 """"""""""""""""
 let g:ale_sign_column_always = 1
 
-let g:ale_perl_perlcritic_showrules = 1
-let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
-
-let g:ale_python_pylama_options = '--ignore E501,W503'
-
 
 " after/ftplugin/<lang>.vim might set some of the linters
 "
-" python -m pip install pylama mypy
-" npm install --save-dev eslint
-" cpanm -n Perl::Critic
-let g:ale_linters = {
-      \ 'javascript': ['eslint'],
-      \ 'perl': ['perl', 'perlcritic'],
-      \ 'python': ['pylama', 'mypy'],
-      \}
+" let g:ale_linters = {}
 
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -383,11 +308,100 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:endwise_no_mappings = 1
 source ~/.vim/coc.vim
 
-
 "}}}
 
-if filereadable(expand("~/.vimrc.local"))
+" Plugins {{{
+""""""""""""""""
+
+call plug#begin()
+
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-unimpaired'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'tpope/vim-eunuch'
+Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
+Plug 'AndrewRadev/linediff.vim'
+Plug 'junegunn/vim-emoji'
+  command! -range EmojiReplace <line1>,<line2>s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
+
+" Viml editing
+Plug 'junegunn/vader.vim'
+Plug 'tpope/vim-scriptease'
+
+" Languages
+Plug 'vim-perl/vim-perl'
+Plug 'Glench/Vim-Jinja2-Syntax', { 'for': 'sls' }
+Plug 'saltstack/salt-vim', { 'for': 'sls' }
+Plug 'jelera/vim-javascript-syntax'
+Plug 'tpope/vim-markdown'
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'leafgarland/typescript-vim'
+Plug 'cespare/vim-toml'
+Plug 'vim-scripts/indentpython.vim' " fix indenting
+Plug 'chr4/nginx.vim'
+Plug 'neoclide/jsonc.vim'
+
+" Theme stuff
+" Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'lifepillar/vim-solarized8' " a solarized that works
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+
+" Lint & lang server
+Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" My plugins
+Plug 'shumphrey/fugitive-gitlab.vim'
+" Plug 'shumphrey/scarletquarry'
+Plug 'shumphrey/vim-perl-utils'
+" Plug 'shumphrey/Vim-InPaste-Plugin'
+" Plug 'shumphrey/Vim-Acme-MetaSyntactic'
+
+" }}}
+
+if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
+call plug#end()
+
+" Theme/Colours {{{
+"""""""""""""""""""
+" Make vim use full colour range
+" supported by iterm2 for example
+" echo $COLORTERM -> truecolor
+" theme may need overriding/replacing in ~/.vimrc.local
+"
+" iterm2 sets TERM to xterm-256color
+" tmux sets TERM to screen-256color
+" apparently tmux wants a screen or tmux based TERM
+" setting TERM in zshrc is apparently bad practice
+" So although "TERM=xterm-256color vim" seems to work, this is apparently better
+" This plays nice with neovim :checkhealth also
+if has('termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+let g:solarized_termtrans = 1
+let g:solarized_italics = 0
+set background=dark
+silent! colorscheme solarized8
+
+" Add a column indicating when you approach 80 columns
+set colorcolumn=80
+hi ColorColumn ctermbg=darkgrey guibg=lightgrey
+" }}}
 
 " vim: set ts=2 sw=2 et foldmethod=marker :

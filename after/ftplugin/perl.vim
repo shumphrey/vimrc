@@ -122,3 +122,9 @@ endfunction
 setlocal foldmethod=expr
 setlocal foldexpr=PodFolds()
 setlocal equalprg=perltidy
+
+
+" Ale settings
+" cpanm -n Perl::Critic
+let g:ale_perl_perlcritic_showrules = 1
+let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'

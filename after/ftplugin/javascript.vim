@@ -1,3 +1,10 @@
+" npm install --save-dev eslint
+
+" same as prettier
+set shiftwidth=2
+set expandtab
+
+" deprecated, coc.vim does this for us
 function! s:aroundFunction()
     " search backwards for the word function
     if (!search('function', 'bzc', 0))

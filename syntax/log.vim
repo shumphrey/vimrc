@@ -1,7 +1,7 @@
 " Vim syntax file for log4perl
 "
 if exists("b:current_syntax")
-finish
+  finish
 endif
 syn match fatal ".* FATAL .*"
 syn match fatal "^FATAL: .*"
