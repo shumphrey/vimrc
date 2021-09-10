@@ -217,11 +217,6 @@ endif
 " keep semantics of 'u' being undo, map ctrl-u to undo menu
 map <silent> <C-u> :UndotreeToggle<CR>
 
-
-" Acme::MetaSyntactic
-imap <F10> <C-R>=GetMetaSyntacticWord()<C-M>
-map <F10> "=GetMetaSyntacticWord()<C-M>p
-
 " Force myself to use hjkl
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -243,6 +238,24 @@ nnoremap <c-o> <c-o>zz
 " Use sane regexes.
 nnoremap / /\v
 vnoremap / /\v
+
+" %% expands to current directory in command mode
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+
+" ----------------------------------------------------------------------------
+" <leader>ij | Open in IntelliJ
+" <leader>vs | Open in VSCode
+" ----------------------------------------------------------------------------
+if has('mac')
+  nnoremap <silent> <leader>ij :call system('nohup idea '.expand('%:p').'> /dev/null 2>&1 < /dev/null &')<cr>
+  nnoremap <silent> <leader>vs :call system('nohup code '.expand('%:p').'> /dev/null 2>&1 < /dev/null &')<cr>
+endif
+
+" Heresy
+inoremap <c-a> <esc>I
+inoremap <c-e> <esc>A
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
 
 "}}}
 
@@ -267,6 +280,15 @@ augroup vimrc
 
     " Save when losing focus
     au FocusLost * :silent! wall
+
+    " Automatic rename of tmux window
+    if exists('$TMUX') && !exists('$NORENAME')
+        au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+        au VimLeave * call system('tmux set-window automatic-rename on')
+    endif
+
+    " exit paste mode when leaving insert mode
+    au InsertLeave * silent! set nopaste
 augroup END
 
 "}}}
@@ -299,6 +321,10 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" Use unimpaired style mappings
+nmap ]a <Plug>(ale_next_wrap)
+nmap [a <Plug>(ale_previous_wrap)
 
 """"""""""""""""
 " coc
@@ -362,11 +388,17 @@ Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " My plugins
-Plug 'shumphrey/fugitive-gitlab.vim'
+" Plug 'shumphrey/fugitive-gitlab.vim', { 'branch': 'snippets' }
+  " command! -nargs=* -complete=customlist,s:list_snippet_comp GsnipList call gitlab#snippet#list(<f-args>)
+  " command! -bar -bang -range=% -nargs=* -complete=customlist,s:write_snippet_comp Gsnip call gitlab#snippet#write(<bang>0, <line1>, <line2>, <f-args>)
+
 " Plug 'shumphrey/scarletquarry'
 Plug 'shumphrey/vim-perl-utils'
 " Plug 'shumphrey/Vim-InPaste-Plugin'
 " Plug 'shumphrey/Vim-Acme-MetaSyntactic'
+"   imap <F10> <C-R>=GetMetaSyntacticWord()<C-M>
+"   map <F10> "=GetMetaSyntacticWord()<C-M>p
+
 
 " }}}
 
