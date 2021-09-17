@@ -392,9 +392,7 @@ Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " My plugins
-" Plug 'shumphrey/fugitive-gitlab.vim', { 'branch': 'snippets' }
-  " command! -nargs=* -complete=customlist,s:list_snippet_comp GsnipList call gitlab#snippet#list(<f-args>)
-  " command! -bar -bang -range=% -nargs=* -complete=customlist,s:write_snippet_comp Gsnip call gitlab#snippet#write(<bang>0, <line1>, <line2>, <f-args>)
+Plug 'shumphrey/fugitive-gitlab.vim'
 
 " Plug 'shumphrey/scarletquarry'
 Plug 'shumphrey/vim-perl-utils'
