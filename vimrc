@@ -41,7 +41,11 @@ set ignorecase smartcase
 " A more sensible file tab completion
 set wildmode=longest,list,full
 set wildmenu
-set completeopt=longest,menuone,preview
+if has('popupwin')
+    set completeopt=longest,menuone,popup
+else
+    set completeopt=longest,menuone,preview
+endif
 
 " Scrolling, nicer scrolling when wrapping
 set sidescroll=1
