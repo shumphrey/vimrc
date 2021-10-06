@@ -73,11 +73,13 @@ set list
 " Not sure what syntaxcomplete#Complete is giving me
 " set omnifunc=syntaxcomplete#Complete
 
-" use vim-emoji for completion
+" use vim-emoji for default completefunc
+" ctrl-x ctrl-u
 setglobal completefunc=emoji#complete
 
 " Remove 'scan file' from ctrl-n/ctrl-p completion list
-" (buffer is still scanned)
+" Can be slow
+" buffer is still scanned
 set complete-=i
 
 """""""""""""""""
@@ -267,7 +269,7 @@ cnoremap <c-e> <end>
 """"""""""""""""
 
 " create autocommands only once
-augroup vimrc
+augroup my_vimrc
     au!
 
     " Load boiler plate files
@@ -392,10 +394,14 @@ Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " My plugins
+" GitLab omnicompletion of users, issues and :GBrowse support
 Plug 'shumphrey/fugitive-gitlab.vim'
+" Jira + GitHub + Emojis
+Plug 'shumphrey/bbc.vim'
 
+" Legacy
 " Plug 'shumphrey/scarletquarry'
-Plug 'shumphrey/vim-perl-utils'
+" Plug 'shumphrey/vim-perl-utils'
 " Plug 'shumphrey/Vim-InPaste-Plugin'
 " Plug 'shumphrey/Vim-Acme-MetaSyntactic'
 "   imap <F10> <C-R>=GetMetaSyntacticWord()<C-M>
