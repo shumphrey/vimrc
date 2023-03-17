@@ -281,8 +281,10 @@ augroup my_vimrc
     " au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
 
     " automatically load changes to these files
-    au BufWritePost .vimrc.local ++nested source ~/.vimrc.local | silent! echom "Sourced vimrc"
-    au BufWritePost vimrc ++nested source ~/.vim/vimrc | silent! echom "Sourced vimrc.local"
+    if v:version >= 900 || has('nvim')
+      au BufWritePost .vimrc.local ++nested source ~/.vimrc.local | silent! echom "Sourced vimrc"
+      au BufWritePost vimrc ++nested source ~/.vim/vimrc | silent! echom "Sourced vimrc.local"
+    endif
 
     " Save when losing focus
     au FocusLost * :silent! wall
