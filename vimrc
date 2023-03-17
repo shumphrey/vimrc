@@ -184,7 +184,7 @@ nmap :Bn :bn " need to learn to use unimpaired [b ]b
 nmap :Bp :bp
 
 
-map <F2> :set hls!<CR>
+map <F2> :set hlsearch!<CR>
 map <F3> :set relativenumber!<CR>
 map <F5> :set wrap!<CR>
 set pastetoggle=<F6>
