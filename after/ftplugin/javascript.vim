@@ -52,4 +52,4 @@ xnoremap <silent> af :<c-u>call <sid>aroundFunction()<cr>
 onoremap <silent> if :<c-u>call <sid>insideFunction()<cr>
 xnoremap <silent> if :<c-u>call <sid>insideFunction()<cr>
 
-setlocal suffixesadd=.js
+setlocal suffixesadd=.js,.jsx
