@@ -534,4 +534,7 @@ if !has('nvim')
 endif
 " }}}
 
+" set diffopt+=iwhite
+" set diffopt+=indent-heuristic
+
 " vim: set ts=2 sw=2 et foldmethod=marker :
