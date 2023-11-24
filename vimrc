@@ -14,8 +14,6 @@ syntax on               " syntax highlighting on
 set history=1000          " How many lines of history to remember
 set confirm               " confirm y/n dialog
 set viminfo+=!,%          " Save buffer list so that vim reopens buffers, save capitalized variables
-set iskeyword+=_,$,@,%,-  " none of these should be word dividers, so make them not be
-set splitright            " vertical split opens on the right
 
 " Indenting level
 " Expand tabs to be spaces
@@ -41,11 +39,12 @@ set ignorecase smartcase
 " A more sensible file tab completion
 set wildmode=longest,list,full
 set wildmenu
+set completeopt=longest,menuone,preview
 if has('popupwin')
-    set completeopt=longest,menuone,popup
-else
-    set completeopt=longest,menuone,preview
+    set completeopt+=popup
 endif
+" preview is just annoying
+set completeopt-=preview
 
 " Scrolling, nicer scrolling when wrapping
 set sidescroll=1
@@ -82,6 +81,51 @@ setglobal completefunc=emoji#complete
 " buffer is still scanned
 set complete-=i
 
+if has('patch-7.4.338')
+  let &showbreak = '↳ '
+  set breakindent
+  set breakindentopt=sbr
+endif
+
+function! WrapForTmux(s)
+    return a:s
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+set noautoindent
+
+" stop netrw directories being undeletable
+let g:netrw_fastbrowse=0
+
+" Stolen from vim-sensible
+" Allows :DiffOrig to show the differences between your changes and the file
+" you opened
+if exists(":DiffOrig") != 2
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_
+        \ | diffthis | wincmd p | diffthis
+endif
+
+" Make macros shift-q
+nnoremap Q q
+nmap q <NOP>
+
 """""""""""""""""
 " Files/Backups "
 """""""""""""""""
@@ -91,6 +135,9 @@ set autoread " auto reread if file hasn't changed in buffer
 
 if has('persistent_undo')
     set undodir=~/.vim/tmp/undo//
+    if has('nvim')
+      set undodir=~/.vim/tmp/nvim_undo//
+    endif
     set undofile
     if !isdirectory(expand(&undodir))
         call mkdir(expand(&undodir), 'p')
@@ -287,7 +334,7 @@ augroup my_vimrc
     endif
 
     " Save when losing focus
-    au FocusLost * :silent! wall
+    au FocusLost * silent! wall | silent! echom 'Saved because focus lost'
 
     " Automatic rename of tmux window
     if exists('$TMUX') && !exists('$NORENAME')
@@ -335,12 +382,21 @@ nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
 
 """"""""""""""""
+" Gist settings
+""""""""""""""""
+" make gists private by default
+let g:gist_post_private = 1
+let g:gist_open_browser_after_post = 1
+
+""""""""""""""""
 " coc
 """"""""""""""""
 
 " vim-endwise conflicts with our coc mapping of enter
 let g:endwise_no_mappings = 1
-source ~/.vim/coc.vim
+if !has("nvim")
+  source ~/.vim/coc.vim
+endif
 
 "}}}
 
@@ -363,6 +419,17 @@ Plug 'mattn/gist-vim'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'junegunn/vim-emoji'
   command! -range EmojiReplace <line1>,<line2>s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
+" gS - split singleline to multiline (inside block)
+" gJ - join (on first line of block)
+" multilanguage, e.g. typescript { a, b } -> {\n a,\n b \n }
+Plug 'AndrewRadev/splitjoin.vim'
+  " let g:splitjoin_split_mapping = ''
+  " let g:splitjoin_join_mapping = ''
+  " nnoremap gss :SplitjoinSplit<cr>
+  " nnoremap gsj :SplitjoinJoin<cr>
+" git conflict marker text objects `di=` delete-inside-conflict-marker
+Plug 'kana/vim-textobj-user'
+Plug 'rhysd/vim-textobj-conflict'
 
 " Viml editing
 Plug 'junegunn/vader.vim'
@@ -385,7 +452,10 @@ Plug 'neoclide/jsonc.vim'
 " Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'lifepillar/vim-solarized8' " a solarized that works
+
+if !has('nvim')
+  Plug 'lifepillar/vim-solarized8' " a solarized that works
+endif
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -393,7 +463,19 @@ Plug 'tpope/vim-rhubarb'
 
 " Lint & lang server
 Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+if !has('nvim')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
+
+" neovim ones
+if has('nvim')
+  Plug 'ncm2/float-preview.nvim'
+endif
+
+if !has('nvim')
+    Plug 'editorconfig/editorconfig-vim'
+    let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+endif
 
 " My plugins
 " GitLab omnicompletion of users, issues and :GBrowse support
@@ -444,6 +526,12 @@ silent! colorscheme solarized8
 " Add a column indicating when you approach 80 columns
 set colorcolumn=80
 hi ColorColumn ctermbg=darkgrey guibg=lightgrey
+
+" Make the popup balloon more distinguishable from solarized background
+" makes nvim put underlines on the popup
+if !has('nvim')
+    hi Pmenu ctermfg=250 ctermbg=235 gui=underline guifg=#bcbcbc guibg=#262626
+endif
 " }}}
 
 " vim: set ts=2 sw=2 et foldmethod=marker :
