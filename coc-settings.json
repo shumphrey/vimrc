@@ -1,5 +1,15 @@
 {
   "coc.source.around.enable": false,
+  // "java.jdt.ls.vmargs": "-javaagent:/usr/local/share/lombok/lombok.jar -Xbootclasspath/a:/usr/local/share/lombok/lombok.jar",
   "javascript.suggestionActions.enabled": false,
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  // hints can be displayed as greyed out, but we don't want the icon in the menu
+  // "diagnostic.hintSign": ""
+  "suggest.noselect": true,
+  // Make <tab> trigger completions
+  // "suggest.autoTrigger": "none",
+  // Make keywords trigger completions
+  "suggest.autoTrigger": "trigger",
+  // Make everything trigger completions
+  // "suggest.autoTrigger": "always",
 }
