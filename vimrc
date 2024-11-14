@@ -468,6 +468,9 @@ Plug 'tpope/vim-rhubarb'
 Plug 'w0rp/ale'
 if !has('nvim')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+else
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 
 " neovim ones
