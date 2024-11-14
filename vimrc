@@ -455,6 +455,9 @@ Plug 'vim-airline/vim-airline-themes'
 
 if !has('nvim')
   Plug 'lifepillar/vim-solarized8' " a solarized that works
+else
+  Plug 'tjdevries/colorbuddy.nvim'
+  Plug 'svrana/neosolarized.nvim'
 endif
 
 " Git
@@ -521,7 +524,11 @@ endif
 let g:solarized_termtrans = 1
 let g:solarized_italics = 0
 set background=dark
-silent! colorscheme solarized8
+if has('nvim')
+  silent! colorscheme neosolarized
+else
+  silent! colorscheme solarized8
+endif
 
 " Add a column indicating when you approach 80 columns
 set colorcolumn=80
