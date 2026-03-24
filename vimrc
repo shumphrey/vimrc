@@ -41,7 +41,7 @@ set wildmode=longest,list,full
 set wildmenu
 set completeopt=longest,menuone,preview
 if has('popupwin')
-    set completeopt+=popup
+  set completeopt+=popup
 endif
 " preview is just annoying
 set completeopt-=preview
@@ -124,28 +124,28 @@ nmap q <NOP>
 set autoread " auto reread if file hasn't changed in buffer
 
 if has('persistent_undo')
-    set undodir=~/.vim/tmp/undo//
-    if has('nvim')
-      set undodir=~/.vim/tmp/nvim_undo//
-    endif
-    set undofile
-    if !isdirectory(expand(&undodir))
-        call mkdir(expand(&undodir), 'p')
-    endif
+  set undodir=~/.vim/tmp/undo//
+  if has('nvim')
+    set undodir=~/.vim/tmp/nvim_undo//
+  endif
+  set undofile
+  if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), 'p')
+  endif
 endif
 
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), 'p')
+  call mkdir(expand(&backupdir), 'p')
 endif
 if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), 'p')
+  call mkdir(expand(&directory), 'p')
 endif
 
 " if has('win32') || has('nvim')
 if has('nvim')
-    setglobal runtimepath^=~/.vim runtimepath+=~/.vim/after
+  setglobal runtimepath^=~/.vim runtimepath+=~/.vim/after
 endif
 
 " }}}
@@ -309,33 +309,33 @@ cnoremap <c-e> <end>
 
 " create autocommands only once
 augroup my_vimrc
-    au!
+  au!
 
-    " Load boiler plate files
-    " Because it reads content of template file above the current line we have a
-    " blank line... delete it
-    au BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e | $d
+  " Load boiler plate files
+  " Because it reads content of template file above the current line we have a
+  " blank line... delete it
+  au BufNewFile * silent! 0r ~/.vim/skeleton/template.%:e | $d
 
-    " Set the sparkup filetypes
-    " au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
+  " Set the sparkup filetypes
+  " au FileType tt,tt2html,php runtime! ftplugin/html/sparkup.vim
 
-    " automatically load changes to these files
-    if v:version >= 900 || has('nvim')
-      au BufWritePost .vimrc.local ++nested source ~/.vimrc.local | silent! echom "Sourced vimrc"
-      au BufWritePost vimrc ++nested source ~/.vim/vimrc | silent! echom "Sourced vimrc.local"
-    endif
+  " automatically load changes to these files
+  if v:version >= 900 || has('nvim')
+    au BufWritePost .vimrc.local ++nested source ~/.vimrc.local | silent! echom "Sourced vimrc"
+    au BufWritePost vimrc ++nested source ~/.vim/vimrc | silent! echom "Sourced vimrc.local"
+  endif
 
-    " Save when losing focus
-    au FocusLost * silent! wall | silent! echom 'Saved because focus lost'
+  " Save when losing focus
+  au FocusLost * silent! wall | silent! echom 'Saved because focus lost'
 
-    " Automatic rename of tmux window
-    if exists('$TMUX') && !exists('$NORENAME')
-        au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
-        au VimLeave * call system('tmux set-window automatic-rename on')
-    endif
+  " Automatic rename of tmux window
+  if exists('$TMUX') && !exists('$NORENAME')
+    au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+    au VimLeave * call system('tmux set-window automatic-rename on')
+  endif
 
-    " exit paste mode when leaving insert mode
-    au InsertLeave * silent! set nopaste
+  " exit paste mode when leaving insert mode
+  au InsertLeave * silent! set nopaste
 augroup END
 
 "}}}
@@ -471,8 +471,8 @@ if has('nvim')
 endif
 
 if !has('nvim')
-    Plug 'editorconfig/editorconfig-vim'
-    let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+  Plug 'editorconfig/editorconfig-vim'
+  let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 endif
 
 " My plugins
@@ -532,7 +532,7 @@ hi ColorColumn ctermbg=darkgrey guibg=lightgrey
 " Make the popup balloon more distinguishable from solarized background
 " makes nvim put underlines on the popup
 if !has('nvim')
-    hi Pmenu ctermfg=250 ctermbg=235 gui=underline guifg=#bcbcbc guibg=#262626
+  hi Pmenu ctermfg=250 ctermbg=235 gui=underline guifg=#bcbcbc guibg=#262626
 endif
 " }}}
 
