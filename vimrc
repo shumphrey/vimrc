@@ -418,9 +418,9 @@ Plug 'junegunn/vader.vim'
 Plug 'tpope/vim-scriptease'
 
 " Languages
-Plug 'vim-perl/vim-perl'
-Plug 'Glench/Vim-Jinja2-Syntax', { 'for': 'sls' }
-Plug 'saltstack/salt-vim', { 'for': 'sls' }
+" Plug 'vim-perl/vim-perl'
+" Plug 'Glench/Vim-Jinja2-Syntax', { 'for': 'sls' }
+" Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'jelera/vim-javascript-syntax'
 Plug 'tpope/vim-markdown'
 Plug 'martinda/Jenkinsfile-vim-syntax'
