@@ -8,3 +8,8 @@ Plugins incorporated with [vim-plug](https://github.com/junegunn/vim-plug)
 git clone git@github.com:shumphrey/vimrc.git ~/.vim
 vim +PlugInstall
 ```
+
+neovim config
+```
+ln -s ~/.vim/nvim ~/.config/nvim
+```
