@@ -91,7 +91,9 @@ endif
 
 
 function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
+  if !has('nvim')
+    set pastetoggle=<Esc>[201~
+  endif
   set paste
   return ""
 endfunction
@@ -222,7 +224,9 @@ nmap :Bp :bp
 map <F2> :set hlsearch!<CR>
 map <F3> :set relativenumber!<CR>
 map <F5> :set wrap!<CR>
-set pastetoggle=<F6>
+if !has('nvim')
+  set pastetoggle=<F6>
+endif
 map <F7> :sp <cfile><CR>
 map <F8> :vs <cfile><CR>
 
