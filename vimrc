@@ -68,6 +68,8 @@ set list
 "   ctrl-o -- omnifunc
 "   ctrl-u -- completefunc
 " see also, ctrl-n, ctrl-p, ctrl-f, ctrl-l, and more :help ins-completion
+inoremap <c-o> <c-x><c-o>
+inoremap <c-f> <c-x><c-f>
 
 " Not sure what syntaxcomplete#Complete is giving me
 " set omnifunc=syntaxcomplete#Complete
