@@ -380,16 +380,6 @@ nmap [a <Plug>(ale_previous_wrap)
 let g:gist_post_private = 1
 let g:gist_open_browser_after_post = 1
 
-""""""""""""""""
-" coc
-""""""""""""""""
-
-" vim-endwise conflicts with our coc mapping of enter
-let g:endwise_no_mappings = 1
-if !has("nvim")
-  source ~/.vim/coc.vim
-endif
-
 "}}}
 
 " Plugins {{{
