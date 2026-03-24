@@ -74,7 +74,9 @@ set list
 
 " use vim-emoji for default completefunc
 " ctrl-x ctrl-u
-setglobal completefunc=emoji#complete
+" setglobal doesn't work for buffers opened from the commandline...
+" setglobal completefunc=emoji#complete
+set completefunc=emoji#complete
 
 " Remove 'scan file' from ctrl-n/ctrl-p completion list
 " Can be slow
