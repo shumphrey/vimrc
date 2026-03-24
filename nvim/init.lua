@@ -14,8 +14,6 @@ require('neosolarized').setup({
 -- newer syntax highlighting
 require("treesitter")
 
--- Load plugins
-require("plugins")
 -- Load lsp
 require("lsp")
 
