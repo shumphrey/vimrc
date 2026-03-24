@@ -43,10 +43,6 @@ require("copilot").setup({
     auto_refresh = false,
   },
 })
--- require("copilot").setup({
---   suggestion = { enabled = true },
---   panel = { enabled = false },
--- })
 
 local cmp = require'cmp'
 local lspkind = require('lspkind')
@@ -81,3 +77,10 @@ cmp.setup({
     -- { name = 'buffer', group_index = 2 },
   })
 })
+
+cmp.event:on("menu_opened", function()
+    vim.b.copilot_suggestion_hidden = true
+end)
+cmp.event:on("menu_closed", function()
+  vim.b.copilot_suggestion_hidden = false
+end)
