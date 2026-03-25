@@ -393,11 +393,11 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-eunuch'
-Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+" Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 Plug 'AndrewRadev/linediff.vim'
@@ -450,9 +450,7 @@ Plug 'tpope/vim-rhubarb'
 
 " Lint & lang server
 Plug 'w0rp/ale'
-if !has('nvim')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-else
+if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
