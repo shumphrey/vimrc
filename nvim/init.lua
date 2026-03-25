@@ -56,6 +56,7 @@ cmp.setup({
       -- side_padding = 0,
     },
     documentation = {
+      border = "single",
       -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
       winhighlight = "Normal:Pmenu",
       -- col_offset = -3,
@@ -103,6 +104,4 @@ end)
 vim.api.nvim_set_hl(0, "Pmenu", { bg = "#586e75", fg = "#eee8d5" })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#2aa198", fg = "#073642" })
 
--- This doesn't do anything
--- FloatBorder: Use Blue (#268bd2) to make the border "frame" the menu
--- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#FF0000", fg = "#FF0000" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#839496" })
