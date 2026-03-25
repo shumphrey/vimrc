@@ -4,6 +4,13 @@
 --
 -- See ~/.config/nvim/install_lsp.sh for installing language servers
 
+-- does nothing
+-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+--   vim.lsp.handlers.hover, {
+--     -- Options: "single", "double", "rounded", "solid", "shadow"
+--     border = "single",
+--   }
+-- )
 
 vim.lsp.config('basedpyright', {
   on_attach = function(client, bufnr)

@@ -105,3 +105,6 @@ vim.api.nvim_set_hl(0, "Pmenu", { bg = "#586e75", fg = "#eee8d5" })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#2aa198", fg = "#073642" })
 
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#839496" })
+
+-- Make LSP hover be more visible
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#586e75" })
