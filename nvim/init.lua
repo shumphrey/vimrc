@@ -1,22 +1,15 @@
 -- source the shared vim/nvim configs
--- shared plugins, mappings, config
+-- shared plugins, mappings, config, theme
 vim.cmd('source ~/.vim/vimrc')
 
 vim.g.mapleader = ' '
 
-
--- theme stuff
-vim.o.termguicolors = true
-require('neosolarized').setup({
-  comment_italics = true,
-})
 
 -- newer syntax highlighting
 require("treesitter")
 
 -- Load lsp
 require("lsp")
-
 
 
 -- nvim specific settings
@@ -27,24 +20,26 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 
+
 -- docker popup for completefunc descriptions
 -- my bbc.vim jira completions with ctrl-x ctrl-u/tab now have their descriptions
 -- much like vim9's set completefunc+=popup
 vim.cmd('let g:float_preview#docked = 0')
 
-
 require("copilot").setup({
   suggestion = {
-    enabled = true,
-    auto_trigger = true,
+    enabled = false,
+    auto_trigger = false,
   },
   panel = {
-    enabled = true,
+    enabled = false,
     auto_refresh = false,
   },
 })
 
-local cmp = require'cmp'
+require("copilot_cmp").setup()
+
+local cmp = require('cmp')
 local lspkind = require('lspkind')
 
 cmp.setup({
@@ -54,8 +49,18 @@ cmp.setup({
     end,
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    -- completion = cmp.config.window.bordered(),
+    completion = {
+      winhighlight = "Normal:Pmenu",
+      -- col_offset = -3,
+      -- side_padding = 0,
+    },
+    documentation = {
+      -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+      winhighlight = "Normal:Pmenu",
+      -- col_offset = -3,
+      -- side_padding = 100,
+    }
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -68,19 +73,36 @@ cmp.setup({
     format = lspkind.cmp_format(),
   },
   sources = cmp.config.sources({
-    -- lsp?
     { name = 'nvim_lsp', group_index = 2 },
-    -- Copilot Source
-    -- This doesn't seem to work
-    { name = "copilot", group_index = 2, keyword_length = 0 },
+    { name = "copilot", group_index = 2 },
     -- random words from the buffer
     -- { name = 'buffer', group_index = 2 },
-  })
+  }),
 })
 
+
+-- lspkind.lua
+lspkind.init({
+  symbol_map = {
+    Copilot = "",
+  },
+})
+
+
+-- Stop copilot from suggesting things whilst I have the completion menu opened
 cmp.event:on("menu_opened", function()
     vim.b.copilot_suggestion_hidden = true
 end)
 cmp.event:on("menu_closed", function()
   vim.b.copilot_suggestion_hidden = false
 end)
+
+-- set the Copilot type string to be a different colour
+-- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+
+vim.api.nvim_set_hl(0, "Pmenu", { bg = "#586e75", fg = "#eee8d5" })
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#2aa198", fg = "#073642" })
+
+-- This doesn't do anything
+-- FloatBorder: Use Blue (#268bd2) to make the border "frame" the menu
+-- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#FF0000", fg = "#FF0000" })

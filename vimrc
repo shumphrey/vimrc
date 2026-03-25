@@ -508,9 +508,9 @@ if has('termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-let g:solarized_termtrans = 1
-let g:solarized_italics = 0
-set background=dark
+" let g:solarized_termtrans = 1
+" let g:solarized_italics = 0
+" set background=dark
 if has('nvim')
   silent! colorscheme neosolarized
 else
