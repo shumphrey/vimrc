@@ -1,16 +1,16 @@
--- lspconfig is deprecated, use vim.lsp.* instead
--- The module itself still provides configs though
--- local lspconfig = require('lspconfig')
---
+-- -----------------------------------------------------------------
 -- See ~/.config/nvim/install_lsp.sh for installing language servers
+-- -----------------------------------------------------------------
 
--- does nothing
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
---   vim.lsp.handlers.hover, {
---     -- Options: "single", "double", "rounded", "solid", "shadow"
---     border = "single",
---   }
--- )
+-- provided by nvim-lspconfig
+-- vim.lsp.config("ty", {
+--     settings = {
+--         ty = {
+--         }
+--     }
+-- })
+vim.lsp.enable('ty')
+
 
 vim.lsp.config('basedpyright', {
   on_attach = function(client, bufnr)
@@ -20,14 +20,17 @@ vim.lsp.config('basedpyright', {
     basedpyright = {
       disableOrganizeImports = true,
       analysis = {
-        typeCheckingMode = "standard", -- "off", "basic", or "strict"
+        -- typeCheckingMode = "standard", -- "off", "basic", or "strict"
+        -- prefer ty for type checking
+        -- does this do anything now?
+        typeCheckingMode = "off",
       }
     },
   }
 })
 
--- pyright for type checking
-vim.lsp.enable('basedpyright')
+-- astral/ty for type checking
+-- vim.lsp.enable('basedpyright')
 -- ruff for linting and formatting
 vim.lsp.enable('ruff')
 

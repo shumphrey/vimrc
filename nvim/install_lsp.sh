@@ -6,3 +6,6 @@ nodenv rehash
 # Maybe we should install with pipx
 #pip3 install -U jedi-language-server ruff
 brew install basedpyright
+
+# Needs uv installed
+uv tool install ty@latest
