@@ -2,19 +2,16 @@
 -- See ~/.config/nvim/install_lsp.sh for installing language servers
 -- -----------------------------------------------------------------
 
--- provided by nvim-lspconfig
--- vim.lsp.config("ty", {
---     settings = {
---         ty = {
---         }
---     }
--- })
+-- config provided by nvim-lspconfig
 vim.lsp.enable('ty')
 
 
 vim.lsp.config('basedpyright', {
   on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
+    -- Disable stuff that astral/ty provides
+    client.server_capabilities.hoverProvider = false
+    client.server_capabilities.definitionProvider = false
   end,
   settings = {
     basedpyright = {
@@ -29,8 +26,8 @@ vim.lsp.config('basedpyright', {
   }
 })
 
--- astral/ty for type checking
--- vim.lsp.enable('basedpyright')
+-- astral/ty for type checking, hover
+vim.lsp.enable('basedpyright')
 -- ruff for linting and formatting
 vim.lsp.enable('ruff')
 
