@@ -91,8 +91,7 @@ local schemas = {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-vim.lsp.enable('jsonls')
-vim.lsp.config('jdtls', {
+vim.lsp.config('jsonls', {
 -- lspconfig.jsonls.setup({
     capabilities = capabilities,
     filetypes = { "json", "jsonc", "json5" },
@@ -103,6 +102,7 @@ vim.lsp.config('jdtls', {
         }
     }
 })
+vim.lsp.enable('jsonls')
 -- lspconfig.lua_ls.setup{}
 
 --  If you want all the features jdtls has to offer, nvim-jdtls is highly recommended. If all you need is diagnostics, completion, imports, gotos and formatting and some code actions you can keep reading here.
