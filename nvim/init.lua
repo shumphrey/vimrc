@@ -6,7 +6,16 @@ vim.g.mapleader = ' '
 
 
 -- newer syntax highlighting
-require("treesitter")
+local parsers = { 'bash', 'diff', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'typescript', 'javascript', 'groovy', 'python', 'json' }
+require('nvim-treesitter').install(parsers)
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = parsers,
+  callback = function() vim.treesitter.start() end,
+})
+
+-- experiment with treesitter folding
+vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.wo[0][0].foldmethod = 'expr'
 
 -- Load lsp
 require("lsp")

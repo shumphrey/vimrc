@@ -452,7 +452,9 @@ Plug 'tpope/vim-rhubarb'
 Plug 'w0rp/ale'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  " need to call :TSUpdate manually as it isn't available until PlugEnd?
+  Plug 'nvim-treesitter/nvim-treesitter'
 endif
 
 " neovim ones
