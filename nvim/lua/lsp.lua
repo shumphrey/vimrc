@@ -95,6 +95,9 @@ vim.lsp.config('jsonls', {
 -- lspconfig.jsonls.setup({
     capabilities = capabilities,
     filetypes = { "json", "jsonc", "json5" },
+    init_options = {
+        provideFormatter = false
+    },
     settings = {
         json = {
             schemas = schemas,
@@ -112,8 +115,12 @@ vim.lsp.enable('jdtls')
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[g', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[g', function()
+    vim.diagnostic.jump({ count = -1, on_jump=vim.diagnostic.open_float })
+end)
+vim.keymap.set('n', ']g', function()
+    vim.diagnostic.jump({ count = 1, on_jump=vim.diagnostic.open_float })
+end)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
